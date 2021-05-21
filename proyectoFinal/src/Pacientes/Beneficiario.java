@@ -7,6 +7,7 @@ package Pacientes;/*
 /**
  *
  * @author Norman
+ * @author Juan
  */
 public final class Beneficiario extends Paciente {
 

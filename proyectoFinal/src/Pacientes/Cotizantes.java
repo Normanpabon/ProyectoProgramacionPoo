@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Norman
+ * @author Juan
  */
 public final class Cotizantes extends Paciente{
     private String celular;

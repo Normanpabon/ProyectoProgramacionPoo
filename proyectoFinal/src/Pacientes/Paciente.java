@@ -7,6 +7,7 @@
 /**
  *
  * @author Norman
+ * @author Juan
  */
 package Pacientes;
 import java.util.ArrayList;

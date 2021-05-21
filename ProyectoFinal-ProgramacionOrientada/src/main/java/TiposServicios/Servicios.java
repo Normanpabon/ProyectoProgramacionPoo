@@ -25,7 +25,7 @@ public class Servicios {
     }
     
     private double valor;
-    Date fecha = new Date();
+    private Date fecha = new Date();
     private int tipo;
 
     public Servicios() {
@@ -66,7 +66,32 @@ public class Servicios {
     }
     
     
+    public void calcularValorServicio(enum servicio){
+        
+        
+            
+        
     
+    
+    }
+    public double calcularCopago(double salario){
+        
+        
+    
+    
+    }
+    
+    public double calcularCuotaMOderadora(double salario, int tipo){
+        
+        if (tipo==1){
+            
+            cuota= getSalario()
+        
+        
+        }
+    
+    
+    }
     
     
     

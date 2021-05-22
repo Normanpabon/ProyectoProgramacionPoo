@@ -66,7 +66,7 @@ public class Servicios {
     }
     
     
-    public void calcularValorServicio(enum servicio){
+    public void calcularValorServicio(String servicio){
         
         
             
@@ -75,6 +75,10 @@ public class Servicios {
     
     }
     public double calcularCopago(double salario){
+        double returnValue = 0.0;
+        
+        
+        return returnValue;
         
         
     
@@ -82,15 +86,18 @@ public class Servicios {
     }
     
     public double calcularCuotaMOderadora(double salario, int tipo){
+        double returnValue = 0.0;
+        
+        
         
         if (tipo==1){
             
-            cuota= getSalario()
+            //cuota= getSalario();
         
         
         }
     
-    
+    return returnValue;
     }
     
     

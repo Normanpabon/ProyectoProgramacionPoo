@@ -23,6 +23,8 @@ public abstract class Paciente {
 
     public Paciente(int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
 
+
+
         this.numeroRegistro = numeroRegistro;
         this.numeroDocumentoIdentidad = numeroDocumentoIdentidad;
         this.nombre = nombre;

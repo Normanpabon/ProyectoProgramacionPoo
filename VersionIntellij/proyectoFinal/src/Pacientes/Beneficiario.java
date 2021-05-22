@@ -66,7 +66,7 @@ public final class Beneficiario extends Paciente {
 
     @Override
     public String toString() {
-        return "Paciente"+ super.toString() +" \nBeneficiario{" +
+        return  super.toString() +" \nBeneficiario{" +
                 "registroCotizante=" + registroCotizante +
                 ", tipoRelacion='" + tipoRelacion + '\'' +
                 ", salarioCotizante=" + salarioCotizante +

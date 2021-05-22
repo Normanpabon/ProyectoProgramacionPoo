@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.*;
 public class main {
 
+    /**
+     * @param args the command line arguments
+     */
     static int contador = 0;
     static ArrayList<Paciente> registroPacientes = new ArrayList<Paciente>();
     public static void main(String[] args) {
@@ -50,73 +53,81 @@ public class main {
 
 
         while(run){
-            System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Salir del aplicativo \n\nOpcion: ");
-            option = sc.nextInt();
+            System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Registrar Servicio  \n4. Salir del aplicativo \n\nOpcion: ");
+            option = Integer.parseInt(sc.nextLine());
 
             switch (option) {
                 case 1:
-                    
+
                     System.out.print("\nSeleccione tipo paciente a registrar: \n1. Paciente cotizante \n2. Paciente beneficiario \n\nOpcion: ");
-                    tipoPaciente = sc.nextInt(); //pide el tipo de paciente para saber que constructor llamar
+                    tipoPaciente = Integer.parseInt(sc.nextLine()); //pide el tipo de paciente para saber que constructor llamar
+
                     //empieza a pedir datos paciente
                     registro = contador;
+
                     System.out.print("\nIngrese n° Documento \n document: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
+
                     System.out.print("\nIngrese Nombre completo paciente \n Nombre: ");
                     nombre = sc.nextLine();
-                    
+
                     if(tipoPaciente == 1){
+
                         System.out.print("\nIngrese n° celular del paciente \n celular: ");
-                        celular = sc.next();
-                        
+                        celular = sc.nextLine();
+
                         System.out.print("\nIngrese salario mensual del paciente \n salario : $");
-                        salario = sc.nextDouble();
-                        
-                        
+                        salario = Double.parseDouble(sc.nextLine());
+
                         //genera obj paciente y lo agrega al array de registro
                         Cotizantes pacienteTmp = new Cotizantes(celular, salario, registro, numeroDocumentoIdentidad, nombre);
                         RegistrarPaciente(pacienteTmp);
-                        
+
                     }else if(tipoPaciente == 2){
-                        
+
                         System.out.print("\n Ingrese n° registro del cotizante \n registro: ");
-                        registroCotizante = sc.nextInt();
-                        
-                        //todo verificar existencia cotizante, llamar metodo "ExistenciaCotizante()"
-                        
+                        registroCotizante = Integer.parseInt(sc.nextLine());
+
+                        //verifica si el numero del cotizante esta correcto
+                        if(!ExistenciaCotizante(registroPacientes, registroCotizante)){
+                            System.out.println("\nError el cotizante no existe !\n");
+                            break;
+                        }
+
                         System.out.print("\n Ingrese tipo relacion paciente \n relacion: ");
-                        tipoRelacion = sc.next();
-                        
+                        tipoRelacion = sc.nextLine();
+
                         System.out.print("\n Ingrese el salario del cotizante \n salario: ");
                         //todo quizas cambiar esto por un metodo y recuperar el salario al buscar el cotizante
-                        salarioCotizante = sc.nextDouble();
-                        
-                        System.out.println("\n Ingrese tipo identificacion");
-                        tipoIdentificacion = sc.next();
-                        
+                        salarioCotizante = Double.parseDouble(sc.nextLine());
+
+                        System.out.println("\n Ingrese tipo identificacion \n (Cedula, Passaporte...): ");
+                        tipoIdentificacion = sc.nextLine();
+
                         //genera obj paciente y lo agrega al array de registro
                         Beneficiario pacienteTmp = new Beneficiario(registroCotizante, tipoRelacion, salarioCotizante, tipoIdentificacion);
                         RegistrarPaciente(pacienteTmp);
-                        
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    // RegistrarPaciente();
+
                     break;
-            //MostrarRegistroPaciente();
+
                 case 2:
+                    System.out.print("\nIngrese el numero de identificacion del paciente a buscar \nIdentificacion: ");
+                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
+                    System.out.println("\n"+MostrarRegistroPaciente(registroPacientes, numeroDocumentoIdentidad)+"\n");
                     break;
                 case 3:
+                    System.out.println("Falta por implementar");
+                    //registrar servicio
+                    break;
+
+                case 4:
                     run = false;
                     break;
                 default:
                     break;
             }
+
 
 
 
@@ -135,7 +146,13 @@ public class main {
 
     public static boolean ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
         boolean existe = false;
-        
+
+        for(Paciente paciente : registroPacientes){
+            if(paciente.getNumeroRegistro() == codigoCotizante){
+                existe = true;
+                break;
+            }
+        }
               
         //todo Implementar recorridoal array y retornar verdadero si el cotizante existe
         
@@ -144,6 +161,7 @@ public class main {
 
     public static void RegistrarPaciente(Paciente paciente){
         contador++; //contador numero pacientes
+        registroPacientes.add(paciente);
 
 
         
@@ -153,6 +171,13 @@ public class main {
         String output = " ";
         
         //todo Implementar recorrido de array y concatenar el "toString" del paciente en la var output
+
+        for(Paciente paciente : registroPacientes){
+            if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
+                output = paciente.toString();
+                break;
+            }
+        }
         
         return output;
     }
@@ -166,3 +191,5 @@ public class main {
     }
     
 }
+
+

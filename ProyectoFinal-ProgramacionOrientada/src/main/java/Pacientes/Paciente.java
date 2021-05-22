@@ -7,7 +7,6 @@
 /**
  *
  * @author Norman
- * @author Juan
  */
 package Pacientes;
 import java.util.ArrayList;
@@ -23,6 +22,8 @@ public abstract class Paciente {
     public Paciente(){}
 
     public Paciente(int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
+
+
 
         this.numeroRegistro = numeroRegistro;
         this.numeroDocumentoIdentidad = numeroDocumentoIdentidad;

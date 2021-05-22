@@ -1,5 +1,4 @@
-package Pacientes;
-import TiposServicios.Servicios;/*
+package Pacientes;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,7 +7,6 @@ import TiposServicios.Servicios;/*
 /**
  *
  * @author Norman
- * @author Juan
  */
 public final class Beneficiario extends Paciente {
 
@@ -68,7 +66,7 @@ public final class Beneficiario extends Paciente {
 
     @Override
     public String toString() {
-        return "Paciente"+ super.toString() +" \nBeneficiario{" +
+        return  super.toString() +" \nBeneficiario{" +
                 "registroCotizante=" + registroCotizante +
                 ", tipoRelacion='" + tipoRelacion + '\'' +
                 ", salarioCotizante=" + salarioCotizante +

@@ -62,11 +62,16 @@ public class Servicios {
 
     @Override
     public String toString() {
-        return "Servicios{" + "valor=" + valor + ", fecha=" + fecha + ", tipo=" + tipo + '}';
+        return " Datos del servicio:" + '\n'
+                " valor=  " + valor + '\n' + 
+                " fecha=  " + fecha + '\n' +
+                " tipo=   " + tipo ;
     }
     
     
     public void calcularValorServicio(enum servicio){
+        
+        
         
         
             
@@ -74,12 +79,15 @@ public class Servicios {
     
     
     }
+
     public double calcularCopago(double salario){
         
         
     
     
     }
+    
+    
     
     public double calcularCuotaMOderadora(double salario, int tipo){
         

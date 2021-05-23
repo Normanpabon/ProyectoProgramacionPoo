@@ -69,11 +69,11 @@ public abstract class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "numeroRegistro=" + numeroRegistro +
+        return "Datos del paciente" +'\''+
+                "numeroRegistro=" + numeroRegistro + '\''+
                 ", numeroDocumentoIdentidad='" + numeroDocumentoIdentidad + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", historialMedico=" + historialMedico +
-                '}';
+                ;
     }
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 /**
  *
  * @author Norman
- * @author Juan
  */
 public final class Cotizantes extends Paciente{
     private String celular;
@@ -57,7 +56,7 @@ public final class Cotizantes extends Paciente{
 
     @Override
     public String toString() {  //todo acomodar
-        return "Paciente"+ super.toString() +" \nCotizantes{" +
+        return  super.toString() +" \nCotizantes{" +
                 "celular='" + celular + '\'' +
                 ", salario=" + salario +
                 '}';

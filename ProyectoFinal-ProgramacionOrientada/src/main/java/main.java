@@ -1,6 +1,7 @@
 import Pacientes.*;
 import java.util.ArrayList;
 import java.util.*;
+import javax.swing.JOptionPane;
 public class main {
 
     /**
@@ -50,6 +51,9 @@ public class main {
         String tipoRelacion = "";
         double salarioCotizante = 0.0;
         String tipoIdentificacion = "";
+        
+        //para las excepciones
+        boolean error= true; 
 
 
         while(run){
@@ -64,12 +68,22 @@ public class main {
 
                     //empieza a pedir datos paciente
                     registro = contador;
-
-                    System.out.print("\nIngrese n° Documento \n document: ");
-                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
-
-                    System.out.print("\nIngrese Nombre completo paciente \n Nombre: ");
-                    nombre = sc.nextLine();
+                    
+                    while(error){
+                    try{
+                        numeroDocumentoIdentidad= Integer.parseInt(JOptionPane.showInputDialog("\nIngrese n° Documento \n document: "));
+                        numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
+                        error=false;
+                    } catch(NumberFormatException e){
+                        JOptionPane.showMessageDialog(null,"El valor debe ser un NUMERO ENTERO \n"+
+                                "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                "toString: "+e.toString());
+                      }
+                    }   System.out.println("N° documento: "+ numeroDocumentoIdentidad);
+                    
+                    
+                    nombre=JOptionPane.showInputDialog("\nIngrese Nombre completo paciente \n Nombre: ").toUpperCase();
+             
 
                     if(tipoPaciente == 1){
 
@@ -96,10 +110,18 @@ public class main {
 
                         System.out.print("\n Ingrese tipo relacion paciente \n relacion: ");
                         tipoRelacion = sc.nextLine();
-
-                        System.out.print("\n Ingrese el salario del cotizante \n salario: ");
-                        //todo quizas cambiar esto por un metodo y recuperar el salario al buscar el cotizante
+                        
+                        while(error){
+                           try{
+                        salarioCotizante=Double.parseDouble(JOptionPane.showInputDialog("\n Ingrese el salario del cotizante \n salario: "));
                         salarioCotizante = Double.parseDouble(sc.nextLine());
+                        error= false;
+                          }catch(NumberFormatException e){
+                              JOptionPane.showMessageDialog(null,"El valor debe ser una serie numérica\n"+
+                                "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                "toString: "+e.toString());      
+                           } System.out.println("Salario del cotizante: "+salarioCotizante);
+                        }
 
                         System.out.println("\n Ingrese tipo identificacion \n (Cedula, Passaporte...): ");
                         tipoIdentificacion = sc.nextLine();

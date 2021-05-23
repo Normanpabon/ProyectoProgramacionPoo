@@ -4,6 +4,8 @@ package Pacientes;/*
  * and open the template in the editor.
  */
 
+import TiposServicios.Servicios;
+
 /**
  *
  * @author Norman
@@ -62,6 +64,15 @@ public final class Beneficiario extends Paciente {
 
     public void setTipoIdentificacion(String tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    @Override
+    public void registrarServicio(Servicios servicio){
+        //todo crear sistema de registro y pasar como argumento constructor del servicio, el "2" para hacer referencia a beneficiario
+
+
+
+        super.registrarServicio(servicio);
     }
 
     @Override

@@ -62,6 +62,7 @@ public abstract class Paciente {
 
 
     public void registrarServicio(Servicios servicio) {
+        //todo
         this.historialMedico.add(servicio);
     }
 
@@ -70,11 +71,11 @@ public abstract class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "numeroRegistro=" + numeroRegistro +
+        return "Datos del paciente" +'\''+
+                "numeroRegistro=" + numeroRegistro + '\''+
                 ", numeroDocumentoIdentidad='" + numeroDocumentoIdentidad + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", historialMedico=" + historialMedico +
-                '}';
+                ", historialMedico=" + historialMedico;
+                
     }
 }

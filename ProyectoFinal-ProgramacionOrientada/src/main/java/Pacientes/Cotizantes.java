@@ -30,12 +30,6 @@ public final class Cotizantes extends Paciente{
 
     }
 
-    //registrar un servicio
-    public void registrarServicio(Servicios objServicios){
-
-        super.registrarServicio(objServicios);
-
-    }
 
 
     public String getCelular() {
@@ -52,6 +46,16 @@ public final class Cotizantes extends Paciente{
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+
+    //registrar un servicio
+    @Override
+    public void registrarServicio(Servicios servicio) {
+        //todo crear sistema de registro y pasar como argumento constructor del servicio, el "1" para hacer referencia a cotizante
+
+        //todo pedir los datos para crear el servicio aca
+        super.registrarServicio(servicio);
     }
 
     @Override

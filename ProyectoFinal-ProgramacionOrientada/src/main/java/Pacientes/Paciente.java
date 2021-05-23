@@ -62,6 +62,7 @@ public abstract class Paciente {
 
 
     public void registrarServicio(Servicios servicio) {
+        //todo
         this.historialMedico.add(servicio);
     }
 

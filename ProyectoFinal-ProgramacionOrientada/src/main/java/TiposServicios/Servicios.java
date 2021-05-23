@@ -10,31 +10,53 @@
  * @author Juan
  */
 package TiposServicios;
-import Pacientes.Cotizantes;
 import java.util.Date;
 
+enum Servicio{
+    ConsultaMedicaGeneral, ConsultaMedicaEspecialista, Cirugia, Hospitalizacion;
+    // ConsultaMedicaGeneral == 0, ... Hospitalizacion == 3
 
+}
 
 public class Servicios {
     
-    enum Servicio
-    {
-    
-       ConsultaMedicaGeneral, ConsultaMedicaEspecialista, Cirugia, Hospitalizacion
-    
-    
-    }
-    
-    private double valor;
-    private Date fecha = new Date();
-    private int tipo;
+
+    private Servicio servicio;
+    private double valor; // coste final del procedimiento
+    private Date fecha; // Fecha de creacion, usa el tiempo actual
+    private int tipo; // tipo 1 == Cotizante | 2 == Beneficiario (o buscar otra manera)
 
     public Servicios() {
+        fecha = new Date();
     }
 
-    public Servicios(double valor, int tipo) {
-        this.valor = valor;
+    public Servicios(int tipo, int servicio) {
+
+        // todo verificar asignacion servicio desde el main
+
+        //la var temporal "servicio" se pasa desde el metodo de registrar el servicio que se cree en el main, indica el tipo de servicio
+        switch (servicio) {
+            case 0:
+                this.servicio = Servicio.ConsultaMedicaGeneral;
+                break;
+            case 1:
+                this.servicio = Servicio.ConsultaMedicaEspecialista;
+                break;
+            case 2:
+                this.servicio = Servicio.Cirugia;
+                break;
+            default:
+                this.servicio = Servicio.Hospitalizacion;
+                break;
+        }
+
+        //this.servicio = servicio;
         this.tipo = tipo;
+
+
+        // la fecha se registra al crear el servicio (al llamar su constructor)
+
+        fecha = new Date();
     }
 
     public double getValor() {
@@ -61,27 +83,19 @@ public class Servicios {
         this.tipo = tipo;
     }
 
-    @Override
-    public String toString() {
-        return " Datos del servicio:" + '\''+
-                " valor=  " + valor + '\'' + 
-                " fecha=  " + fecha + '\'' +
-                " tipo=   " + tipo;
-    }
-    
+
     
     public void calcularValorServicio(String servicio){
-        // creo que aquí hay redundancia, no sería mejor enel valor del servicio es diferente a la cuota y el copago? 
-        //leí el enunciado y ni en la tabla sale un valor diferente a esos 
-        
-        
-            
-        
-    
-    
+        // creo que aquí hay redundancia, no sería mejor enel valor del servicio es diferente a la cuota y el copago?
+        //leí el enunciado y ni en la tabla sale un valor diferente a esos
+
+
+
+
+
+
     }
-    
-    Cotizantes salario= new Cotizantes();
+
 
     public double calcularCopago( int tipo ){
         double coPago = 0.0;
@@ -134,16 +148,14 @@ public class Servicios {
     
     return cuotaModeradora;
     }
-    
-    
-    
-    
-    
-   
-    
-    
-         
-            
-    
-    
+
+
+    @Override
+    public String toString() {
+        return " Datos del servicio:" + '\''+
+                " valor=  " + valor + '\'' +
+                " fecha=  " + fecha + '\'' +
+                " tipo=   " + tipo;
+    }
+
 }

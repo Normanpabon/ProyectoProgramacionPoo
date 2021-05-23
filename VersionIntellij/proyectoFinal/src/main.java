@@ -1,4 +1,6 @@
 import Pacientes.*;
+import TiposServicios.*;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.*;
 public class main {
@@ -11,18 +13,13 @@ public class main {
     public static void main(String[] args) {
 
 
-        // TODO code application logic here
-
         CorrerSistema();
 
 
 
-
-
-
-
-
     }
+
+
 
     public static void CorrerSistema(){
 
@@ -51,6 +48,9 @@ public class main {
         double salarioCotizante = 0.0;
         String tipoIdentificacion = "";
 
+        //para las excepciones
+        boolean error= true;
+
 
         while(run){
             System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Registrar Servicio  \n4. Salir del aplicativo \n\nOpcion: ");
@@ -65,11 +65,21 @@ public class main {
                     //empieza a pedir datos paciente
                     registro = contador;
 
-                    System.out.print("\nIngrese n° Documento \n document: ");
-                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
+                    while(error){
+                        try{
+                            numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
+                            error=false;
+                            
+                        } catch(NumberFormatException e){
+                            JOptionPane.showMessageDialog(null,"El valor debe ser un NUMERO ENTERO \n"+
+                                    "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                    "toString: "+e.toString());
+                        }
+                    }   System.out.println("N° documento: "+ numeroDocumentoIdentidad);
 
-                    System.out.print("\nIngrese Nombre completo paciente \n Nombre: ");
-                    nombre = sc.nextLine();
+
+                    nombre=JOptionPane.showInputDialog("\nIngrese Nombre completo paciente \n Nombre: ").toUpperCase();
+
 
                     if(tipoPaciente == 1){
 
@@ -118,7 +128,11 @@ public class main {
                     break;
                 case 3:
                     System.out.println("Falta por implementar");
-                    //registrar servicio
+                    //pedir usuario a registrarle servicio
+
+
+                    //pedir los datos del servicio y luego invocarlo
+                    Servicios objServiciosTmp;
                     break;
 
                 case 4:

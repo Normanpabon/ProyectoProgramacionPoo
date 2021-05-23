@@ -74,7 +74,7 @@ public abstract class Paciente {
                 "numeroRegistro=" + numeroRegistro + '\''+
                 ", numeroDocumentoIdentidad='" + numeroDocumentoIdentidad + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", historialMedico=" + historialMedico +
-                ;
+                ", historialMedico=" + historialMedico;
+                
     }
 }

@@ -10,6 +10,7 @@
  * @author Juan
  */
 package TiposServicios;
+import Pacientes.Cotizantes;
 import java.util.Date;
 
 
@@ -62,16 +63,16 @@ public class Servicios {
 
     @Override
     public String toString() {
-        return " Datos del servicio:" + '\n'
-                " valor=  " + valor + '\n' + 
-                " fecha=  " + fecha + '\n' +
-                " tipo=   " + tipo ;
+        return " Datos del servicio:" + '\''+
+                " valor=  " + valor + '\'' + 
+                " fecha=  " + fecha + '\'' +
+                " tipo=   " + tipo;
     }
     
     
     public void calcularValorServicio(String servicio){
-        
-        
+        // creo que aquí hay redundancia, no sería mejor enel valor del servicio es diferente a la cuota y el copago? 
+        //leí el enunciado y ni en la tabla sale un valor diferente a esos 
         
         
             
@@ -79,12 +80,23 @@ public class Servicios {
     
     
     }
+    
+    Cotizantes salario= new Cotizantes();
 
-    public double calcularCopago(double salario){
-        double returnValue = 0.0;
+    public double calcularCopago( int tipo ){
+        double coPago = 0.0;
+        
+        if((tipo==3 || tipo==4)){
+            //coPago= ;   si sabes, explicame esto....cómo que porcentajes de qué, no sabría cómo sacar el copago 
         
         
-        return returnValue;
+        
+        }
+        //norman, aquí no tiene sentido que esté salario porque no es un atributo de beneficiarios, y como
+        //el copago solo es para ellos, pues no iría, solo  sería mandarle el tipo de servicio, me refiero a cambiarlo en el uml
+        
+        
+        return coPago;
         
         
     
@@ -94,18 +106,33 @@ public class Servicios {
     
     
     public double calcularCuotaMOderadora(double salario, int tipo){
-        double returnValue = 0.0;
+        double cuotaModeradora = 0.0;
         
         
         
-        if (tipo==1){
-            
-            //cuota= getSalario();
+        if ((tipo==1 || tipo==2) && (salario <=1817051)){
+          
+            cuotaModeradora= 3500; 
+            this.valor=3500; // hago esto por lo que mencioné en CalcularValorServicio()
+        }
+        else{
+            if((tipo==1 || tipo==2) &&  ((1817051 <= salario)&& (salario<= 4542631))){
+                cuotaModeradora= 14000; 
+                this.valor=14000;
+            }
+            else{
+                if((tipo==1 || tipo==2)&&  (4542631 < salario)){
+                    cuotaModeradora= 36000;
+                    this.valor=36000; 
+                }
+     
+            }
+        
         
         
         }
     
-    return returnValue;
+    return cuotaModeradora;
     }
     
     

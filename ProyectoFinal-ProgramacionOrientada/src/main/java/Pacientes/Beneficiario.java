@@ -14,7 +14,8 @@ public final class Beneficiario extends Paciente {
 
     private int registroCotizante;
     private String tipoRelacion;
-    private double salarioCotizante;    //va a ser necesario para ser mas eficiente, toca pensar si luego pasarlo a una
+    private double salarioCotizante;
+    //va a ser necesario para ser mas eficiente, toca pensar si luego pasarlo a una
     //relacion, por si al cotizante le varia el salario
     private String tipoIdentificacion;
 
@@ -23,8 +24,9 @@ public final class Beneficiario extends Paciente {
     }
 
 
-    public Beneficiario(int registroCotizante, String tipoRelacion, double salarioCotizante, String tipoIdentificacion){
+    public Beneficiario(int registroCotizante, String tipoRelacion, double salarioCotizante, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
 
+        super(numeroRegistro, numeroDocumentoIdentidad, nombre);
         //todo manejo de excepciones e interfaz
         this.registroCotizante = registroCotizante;
         this.tipoRelacion = tipoRelacion;
@@ -65,6 +67,8 @@ public final class Beneficiario extends Paciente {
     public void setTipoIdentificacion(String tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
     }
+
+
 
     @Override
     public void registrarServicio(Servicios servicio){

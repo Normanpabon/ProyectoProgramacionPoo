@@ -53,7 +53,7 @@ public class main {
 
 
         while(run){
-            System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Registrar Servicio  \n4. Salir del aplicativo \n\nOpcion: ");
+            System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Registrar Servicio \n4. Mostrar pacientes \n5. Salir del aplicativo \n\nOpcion: ");
             option = Integer.parseInt(sc.nextLine());
 
             switch (option) {
@@ -65,21 +65,17 @@ public class main {
                     //empieza a pedir datos paciente
                     registro = contador;
 
-                    while(error){
-                        try{
-                            numeroDocumentoIdentidad= Integer.parseInt(JOptionPane.showInputDialog("\nIngrese n° Documento \n document: "));
-                            numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
-                            error=false;
-                        } catch(NumberFormatException e){
-                            JOptionPane.showMessageDialog(null,"El valor debe ser un NUMERO ENTERO \n"+
-                                    "Mensaje de excepción: "+ e.getMessage()+'\n'+
-                                    "toString: "+e.toString());
-                        }
-                    }   System.out.println("N° documento: "+ numeroDocumentoIdentidad);
+                    System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
+
+                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
+
+                            
 
 
-                    nombre=JOptionPane.showInputDialog("\nIngrese Nombre completo paciente \n Nombre: ").toUpperCase();
 
+                    //nombre=JOptionPane.showInputDialog("\nIngrese Nombre completo paciente \n Nombre: ").toUpperCase();
+                    System.out.print("\nIngrese Nombre completo paciente \n Nombre: ");
+                    nombre = sc.nextLine();
 
                     if(tipoPaciente == 1){
 
@@ -108,34 +104,42 @@ public class main {
                         tipoRelacion = sc.nextLine();
 
                         System.out.print("\n Ingrese el salario del cotizante \n salario: ");
-                        //todo quizas cambiar esto por un metodo y recuperar el salario al buscar el cotizante
+                        //todo Buscar usando el n° de identificacion, el salario del cotizante
                         salarioCotizante = Double.parseDouble(sc.nextLine());
 
                         System.out.println("\n Ingrese tipo identificacion \n (Cedula, Passaporte...): ");
                         tipoIdentificacion = sc.nextLine();
 
                         //genera obj paciente y lo agrega al array de registro
-                        Beneficiario pacienteTmp = new Beneficiario(registroCotizante, tipoRelacion, salarioCotizante, tipoIdentificacion);
+                        Beneficiario pacienteTmp = new Beneficiario(registroCotizante, tipoRelacion, salarioCotizante, tipoIdentificacion, registro, numeroDocumentoIdentidad, nombre);
                         RegistrarPaciente(pacienteTmp);
                     }
 
                     break;
 
                 case 2:
+
                     System.out.print("\nIngrese el numero de identificacion del paciente a buscar \nIdentificacion: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
                     System.out.println("\n"+MostrarRegistroPaciente(registroPacientes, numeroDocumentoIdentidad)+"\n");
                     break;
-                case 3:
-                    System.out.println("Falta por implementar");
-                    //pedir usuario a registrarle servicio
 
+                case 3:
+
+                    //la existencia del paciente se verifica luego de la creacion del servicio
+                    System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
+                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
 
                     //pedir los datos del servicio y luego invocarlo
-                    Servicios objServiciosTmp;
+                    //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
+
+                    //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, objServiciosTmp);
                     break;
 
                 case 4:
+                    MostrarRegistroPacientes(registroPacientes);
+                    break;
+                case 5:
                     run = false;
                     break;
                 default:
@@ -196,12 +200,40 @@ public class main {
         return output;
     }
 
+
+    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, Servicios servicio){
+        String tmpStatus = "\n";
+        boolean tmpExiste = false;
+        int tmpPosicion;
+
+        for(Paciente paciente : registroPacientes){
+            if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
+                paciente.registrarServicio(servicio);
+                tmpStatus += paciente.obtenerUltimoServicio();
+                //todo notificar al usuario el valor a pagar y el registro exitoso del servicio
+
+                tmpExiste = true;
+                break;
+            }
+        }
+        if(!tmpExiste){
+            //todo notificar al usuario que el paciente no existe
+            tmpStatus += "\nEl paciente no existe";
+        }
+
+        return tmpStatus;
+    }
+
     public static String MostrarRegistroPacientes(ArrayList<Paciente> registroPacientes){
-        String output = " ";
-        
+        String tmpOutput = " ";
+
+        for(Paciente paciente : registroPacientes){
+
+            tmpOutput += "\n --------- \n" + paciente.toString();
+        }
         //todo Implementar recorrido de array y concatenar el "toString" de cada paciente en la var output
         
-        return output;
+        return tmpOutput;
     }
     
 }

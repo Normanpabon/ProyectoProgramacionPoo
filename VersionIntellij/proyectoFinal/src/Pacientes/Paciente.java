@@ -56,14 +56,30 @@ public abstract class Paciente {
         this.nombre = nombre;
     }
 
-    public ArrayList<Servicios> getHistorialMedico() {
-        return historialMedico;
+    public String getHistorialMedico() {
+        String tmpOutput = "\n ----- Historial medico ----- \n";
+
+        for(Servicios servicio : historialMedico){
+            //probar usar stringbuilder por buenas practicas
+            tmpOutput += "\n--------------------------------\n" + servicio.toString();
+        }
+
+
+        return tmpOutput;
     }
 
 
     public void registrarServicio(Servicios servicio) {
-        //todo
         this.historialMedico.add(servicio);
+    }
+
+    //devuelve el ultimo servicio registrado con el usuario
+    public String obtenerUltimoServicio(){
+
+        //todo hacer manejo de excepcion, alta probabilidad de un nullpointer
+        return historialMedico.get(historialMedico.size() - 1).toString();
+
+
     }
 
 

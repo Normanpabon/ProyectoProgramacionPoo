@@ -1,6 +1,6 @@
 import Pacientes.*;
 import TiposServicios.*;
-import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 import java.util.*;
 public class main {
@@ -86,7 +86,7 @@ public class main {
                         salario = Double.parseDouble(sc.nextLine());
 
                         //genera obj paciente y lo agrega al array de registro
-                        Cotizantes pacienteTmp = new Cotizantes(celular, salario, registro, numeroDocumentoIdentidad, nombre);
+                        Cotizante pacienteTmp = new Cotizante(celular, salario, registro, numeroDocumentoIdentidad, nombre);
                         RegistrarPaciente(pacienteTmp);
 
                     }else if(tipoPaciente == 2){
@@ -95,7 +95,8 @@ public class main {
                         registroCotizante = Integer.parseInt(sc.nextLine());
 
                         //verifica si el numero del cotizante esta correcto
-                        if(!ExistenciaCotizante(registroPacientes, registroCotizante)){
+                        Paciente tmpObjPaciente = ExistenciaCotizante(registroPacientes, registroCotizante);
+                        if( tmpObjPaciente == null){
                             System.out.println("\nError el cotizante no existe !\n");
                             break;
                         }
@@ -103,15 +104,12 @@ public class main {
                         System.out.print("\n Ingrese tipo relacion paciente \n relacion: ");
                         tipoRelacion = sc.nextLine();
 
-                        System.out.print("\n Ingrese el salario del cotizante \n salario: ");
-                        //todo Buscar usando el n° de identificacion, el salario del cotizante
-                        salarioCotizante = Double.parseDouble(sc.nextLine());
-
                         System.out.println("\n Ingrese tipo identificacion \n (Cedula, Passaporte...): ");
                         tipoIdentificacion = sc.nextLine();
 
                         //genera obj paciente y lo agrega al array de registro
-                        Beneficiario pacienteTmp = new Beneficiario(registroCotizante, tipoRelacion, salarioCotizante, tipoIdentificacion, registro, numeroDocumentoIdentidad, nombre);
+
+                        Beneficiario pacienteTmp = new Beneficiario(tipoRelacion, tipoIdentificacion, registro, numeroDocumentoIdentidad, nombre, (Cotizante) tmpObjPaciente);
                         RegistrarPaciente(pacienteTmp);
                     }
 
@@ -160,8 +158,20 @@ public class main {
     }
 
 
+    public static Paciente ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
+        Paciente tmpObj = new Cotizante();
+        for(Paciente paciente : registroPacientes) {
+            if (paciente.getNumeroRegistro() == codigoCotizante) {
+                tmpObj = paciente;
+                break;
+            }else{
+                tmpObj = null;
+            }
+        }
+        return tmpObj;
+    }
 
-
+    /*
     public static boolean ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
         boolean existe = false;
 
@@ -171,11 +181,11 @@ public class main {
                 break;
             }
         }
-              
-        //todo Implementar recorridoal array y retornar verdadero si el cotizante existe
-        
+
         return existe;
     }
+
+     */
 
     public static void RegistrarPaciente(Paciente paciente){
         contador++; //contador numero pacientes
@@ -194,6 +204,8 @@ public class main {
             if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
                 output = paciente.toString();
                 break;
+            }else{
+                output = "El paciente no existe";
             }
         }
         

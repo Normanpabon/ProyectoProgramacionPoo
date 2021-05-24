@@ -19,7 +19,7 @@ enum Servicio{
 }
 
 public class Servicios {
-    
+
 
     private Servicio servicio;
     private double valor; // coste final del procedimiento
@@ -58,7 +58,7 @@ public class Servicios {
 
         fecha = new Date();
     }
-
+    // todo revisar metodos, metodos en desuso deben ser borrados
     public double getValor() {
         return valor;
     }
@@ -85,57 +85,59 @@ public class Servicios {
 
 
     
-    public void calcularValorServicio(String servicio){
-        // creo que aquí hay redundancia, no sería mejor enel valor del servicio es diferente a la cuota y el copago?
-        //leí el enunciado y ni en la tabla sale un valor diferente a esos
+//quité lo que calcular valor ya que éste ya se hizo 
 
 
+    
 
 
-
-
-    }
-
-
-    public double calcularCopago( int tipo ){
+    public double calcularCopago(  int servicio, double salario ){
         double coPago = 0.0;
         
-        if((tipo==3 || tipo==4)){
-            //coPago= ;   si sabes, explicame esto....cómo que porcentajes de qué, no sabría cómo sacar el copago 
-        
-        
-        
-        }
-        //norman, aquí no tiene sentido que esté salario porque no es un atributo de beneficiarios, y como
-        //el copago solo es para ellos, pues no iría, solo  sería mandarle el tipo de servicio, me refiero a cambiarlo en el uml
-        
+        if((servicio == 2 || servicio ==3)&& salario<=260747 ){
+            coPago= salario*0.115;
+            this.valor=salario*0.115; 
+        } else {
+            if((servicio == 2 || servicio ==3)&& (260747<=salario)&&(salario<=1044805)){
+                coPago= salario*0.173;
+                this.valor= salario*0.173;
+               
+            } else{
+                if((servicio == 2 || servicio ==3)&& (1044805<=salario)&&(salario<=2089610)){
+                    coPago= salario*0.23;
+                    this.valor= salario*0.23;
+   
+             } 
+    
+    
+           }
+            
+        } 
         
         return coPago;
         
         
     
-    
     }
     
     
-    
-    public double calcularCuotaMOderadora(double salario, int tipo){
+    public double calcularCuotaMOderadora(double salario, int servicio){
         double cuotaModeradora = 0.0;
         
         
         
-        if ((tipo==1 || tipo==2) && (salario <=1817051)){
+        if ((servicio==0 || servicio==1) && (salario <=1817051)){
           
             cuotaModeradora= 3500; 
             this.valor=3500; // hago esto por lo que mencioné en CalcularValorServicio()
         }
         else{
-            if((tipo==1 || tipo==2) &&  ((1817051 <= salario)&& (salario<= 4542631))){
+            if((servicio==0 || servicio==1) &&  ((1817051 <= salario)&& (salario<= 4542631))){
                 cuotaModeradora= 14000; 
                 this.valor=14000;
             }
             else{
-                if((tipo==1 || tipo==2)&&  (4542631 < salario)){
+                if((servicio==0|| servicio==1)&&  (4542631 < salario)){
                     cuotaModeradora= 36000;
                     this.valor=36000; 
                 }

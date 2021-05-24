@@ -12,15 +12,15 @@ import java.util.ArrayList;
  *
  * @author Norman
  */
-public final class Cotizantes extends Paciente{
+public final class Cotizante extends Paciente{
     private String celular;
     private double salario;
 
-    public Cotizantes(){
+    public Cotizante(){
 
     }
 
-    public Cotizantes(String celular, double salario, int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
+    public Cotizante(String celular, double salario, int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
 
         super(numeroRegistro, numeroDocumentoIdentidad, nombre);
 

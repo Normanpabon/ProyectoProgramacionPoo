@@ -19,7 +19,7 @@ enum Servicio{
 }
 
 public class Servicios {
-    
+
 
     private Servicio servicio;
     private double valor; // coste final del procedimiento
@@ -58,7 +58,7 @@ public class Servicios {
 
         fecha = new Date();
     }
-
+    // todo revisar metodos, metodos en desuso deben ser borrados
     public double getValor() {
         return valor;
     }

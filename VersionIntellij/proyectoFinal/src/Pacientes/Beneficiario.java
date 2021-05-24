@@ -12,11 +12,9 @@ import TiposServicios.Servicios;
  */
 public final class Beneficiario extends Paciente {
 
-    private int registroCotizante;
+
     private String tipoRelacion;
-    private double salarioCotizante;
-    //va a ser necesario para ser mas eficiente, toca pensar si luego pasarlo a una
-    //relacion, por si al cotizante le varia el salario
+    private Cotizante cotizante; // crear objeto y relacionarlo
     private String tipoIdentificacion;
 
     public Beneficiario(){
@@ -24,25 +22,21 @@ public final class Beneficiario extends Paciente {
     }
 
 
-    public Beneficiario(int registroCotizante, String tipoRelacion, double salarioCotizante, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre){
+    public Beneficiario(String tipoRelacion, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre, Cotizante cotizante){
 
         super(numeroRegistro, numeroDocumentoIdentidad, nombre);
         //todo manejo de excepciones e interfaz
-        this.registroCotizante = registroCotizante;
+        this.cotizante = cotizante;
         this.tipoRelacion = tipoRelacion;
-        this.salarioCotizante = salarioCotizante;
+
         this.tipoIdentificacion = tipoIdentificacion;
 
 
     }
 
-    public int getRegistroCotizante() {
-        return registroCotizante;
-    }
 
-    public void setRegistroCotizante(int registroCotizante) {
-        this.registroCotizante = registroCotizante;
-    }
+
+
 
     public String getTipoRelacion() {
         return tipoRelacion;
@@ -53,12 +47,9 @@ public final class Beneficiario extends Paciente {
     }
 
     public double getSalarioCotizante() {
-        return salarioCotizante;
+        return cotizante.getSalario();
     }
 
-    public void setSalarioCotizante(double salarioCotizante) {
-        this.salarioCotizante = salarioCotizante;
-    }
 
     public String getTipoIdentificacion() {
         return tipoIdentificacion;
@@ -82,9 +73,7 @@ public final class Beneficiario extends Paciente {
     @Override
     public String toString() {
         return  super.toString() +" \nBeneficiario{" +
-                "registroCotizante=" + registroCotizante +
                 ", tipoRelacion='" + tipoRelacion + '\'' +
-                ", salarioCotizante=" + salarioCotizante +
                 ", tipoIdentificacion='" + tipoIdentificacion + '\'' +
                 '}';
     }

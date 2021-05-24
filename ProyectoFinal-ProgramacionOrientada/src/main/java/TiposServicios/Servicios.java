@@ -22,6 +22,7 @@ public class Servicios {
 
 
     private Servicio servicio;
+    private double sueldo;
     private double valor; // coste final del procedimiento
     private Date fecha; // Fecha de creacion, usa el tiempo actual
     private int tipo; // tipo 1 == Cotizante | 2 == Beneficiario (o buscar otra manera)
@@ -30,7 +31,7 @@ public class Servicios {
         fecha = new Date();
     }
 
-    public Servicios(int tipo, int servicio) {
+    public Servicios(int tipo, int servicio, double sueldo) {
 
         // todo verificar asignacion servicio desde el main
 
@@ -51,6 +52,7 @@ public class Servicios {
         }
 
         //this.servicio = servicio;
+        this.sueldo = sueldo;
         this.tipo = tipo;
 
 

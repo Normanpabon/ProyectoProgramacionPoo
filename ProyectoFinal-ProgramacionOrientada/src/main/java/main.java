@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.*;
 public class main {
 
-    /**
-     * @param args the command line arguments
-     */
     static int contador = 0;
-    static ArrayList<Paciente> registroPacientes = new ArrayList<Paciente>();
+    static ArrayList<Paciente> registroPacientes = new ArrayList<>();
     public static void main(String[] args) {
 
 
@@ -124,14 +121,25 @@ public class main {
 
                 case 3:
 
-                    //la existencia del paciente se verifica luego de la creacion del servicio
                     System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
 
-                    //pedir los datos del servicio y luego invocarlo
-                    //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
+                    if(ExistePaciente(registroPacientes, numeroDocumentoIdentidad)){
 
-                    //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, objServiciosTmp);
+                        System.out.print("\nIngrese el tipo de servicio \n1. Consulta General \n 2. Consulta Especialista \n 3. Cirugia \n4. Hospitalizacion \nOpcion: ");
+                        int servicio = Integer.parseInt(sc.nextLine());
+                        //pedir los datos del servicio y luego invocarlo
+                        //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
+
+                        //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, tipoServicio);
+
+                    }else{
+                        System.out.println("\nEl documento ingresado no esta registrado");
+                        break;
+                    }
+
+
+
                     break;
 
                 case 4:
@@ -157,11 +165,25 @@ public class main {
 
     }
 
+    public static boolean ExistePaciente(ArrayList<Paciente> registroPacientes, int identificacionPaciente){
+        boolean tmpVar = false;
+
+        for(Paciente paciente : registroPacientes){
+
+            if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
+                tmpVar = true;
+            }
+        }
+
+
+        return tmpVar;
+    }
+
 
     public static Paciente ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
         Paciente tmpObj = new Cotizante();
         for(Paciente paciente : registroPacientes) {
-            if (paciente.getNumeroRegistro() == codigoCotizante) {
+            if (paciente.getNumeroRegistro() == codigoCotizante && paciente instanceof Cotizante) {
                 tmpObj = paciente;
                 break;
             }else{
@@ -171,21 +193,6 @@ public class main {
         return tmpObj;
     }
 
-    /*
-    public static boolean ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
-        boolean existe = false;
-
-        for(Paciente paciente : registroPacientes){
-            if(paciente.getNumeroRegistro() == codigoCotizante){
-                existe = true;
-                break;
-            }
-        }
-
-        return existe;
-    }
-
-     */
 
     public static void RegistrarPaciente(Paciente paciente){
         contador++; //contador numero pacientes
@@ -213,16 +220,23 @@ public class main {
     }
 
 
-    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, Servicios servicio){
+    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, int tipoServicio){
         String tmpStatus = "\n";
+        Servicios tmpServicio;
         boolean tmpExiste = false;
         int tmpPosicion;
 
         for(Paciente paciente : registroPacientes){
             if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
-                paciente.registrarServicio(servicio);
+                if(paciente instanceof Cotizante){
+                    tmpServicio = new Servicios(1, tipoServicio, ((Cotizante) paciente).getSalario());
+                }else{
+                    tmpServicio = new Servicios(2, tipoServicio, ((Beneficiario) paciente).getSalarioCotizante());
+                }
+                paciente.registrarServicio(tmpServicio);
                 tmpStatus += paciente.obtenerUltimoServicio();
-                //todo notificar al usuario el valor a pagar y el registro exitoso del servicio
+                tmpStatus = paciente.obtenerUltimoServicio();
+
 
                 tmpExiste = true;
                 break;
@@ -238,6 +252,11 @@ public class main {
 
     public static String MostrarRegistroPacientes(ArrayList<Paciente> registroPacientes){
         String tmpOutput = " ";
+
+        if(registroPacientes.size() == 0){
+            tmpOutput = " No se encuentran pacientes registrados";
+            return tmpOutput;
+        }
 
         for(Paciente paciente : registroPacientes){
 

@@ -9,11 +9,10 @@
  * @author Norman
  */
 package Pacientes;
-import java.io.Serializable;
 import java.util.ArrayList;
 import TiposServicios.Servicios;
 
-public abstract class Paciente implements Serializable {
+public abstract class Paciente {
 
     private int numeroRegistro;
     private int numeroDocumentoIdentidad;

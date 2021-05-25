@@ -1,12 +1,17 @@
 import Pacientes.*;
 import TiposServicios.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
+
+// librerias para persistencia
+
+
 public class main {
 
     static int contador = 0;
-    static ArrayList<Paciente> registroPacientes = new ArrayList<>();
+    static ArrayList<Paciente> registroPacientes;
     public static void main(String[] args) {
 
 
@@ -19,6 +24,9 @@ public class main {
 
 
     public static void CorrerSistema(){
+
+        //Verifica existencia de datos anteriores y carga el archivo
+        registroPacientes = RecuperarDatos(); //todo revisar, esta fallando
 
         //codigo de prueba funcionalidad basica consola
         boolean run = true;
@@ -126,11 +134,10 @@ public class main {
 
                     if(ExistePaciente(registroPacientes, numeroDocumentoIdentidad)){
 
-                        System.out.print("\nIngrese el tipo de servicio \n1. Consulta General \n 2. Consulta Especialista \n 3. Cirugia \n4. Hospitalizacion \nOpcion: ");
+                        System.out.print("\nIngrese el tipo de servicio \n1. Consulta General \n2. Consulta Especialista \n3. Cirugia \n4. Hospitalizacion \nOpcion: ");
                         int servicio = Integer.parseInt(sc.nextLine());
-                        //pedir los datos del servicio y luego invocarlo
-                        //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
-
+                        //todo al implementar la gui, ese system.out.println debe ser removido
+                        System.out.println(RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, servicio));
                         //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, tipoServicio);
 
                     }else{
@@ -138,15 +145,16 @@ public class main {
                         break;
                     }
 
-
-
                     break;
 
                 case 4:
-                    MostrarRegistroPacientes(registroPacientes);
+                    //todo al implementar la gui, ese system.out.println debe ser removido
+                    System.out.println(MostrarRegistroPacientes(registroPacientes));
                     break;
                 case 5:
                     run = false;
+                    //guarda los datos al pedir cerrar el programa
+                    SalvarDatos(registroPacientes);
                     break;
                 default:
                     break;
@@ -234,7 +242,7 @@ public class main {
                     tmpServicio = new Servicios(2, tipoServicio, ((Beneficiario) paciente).getSalarioCotizante());
                 }
                 paciente.registrarServicio(tmpServicio);
-                tmpStatus += paciente.obtenerUltimoServicio();
+                // todo borrar esto e invocar metodo "toString" del servicio, el metodo "paciente.obtenerUltimoServicio()" es deundante
                 tmpStatus = paciente.obtenerUltimoServicio();
 
 
@@ -262,9 +270,47 @@ public class main {
 
             tmpOutput += "\n --------- \n" + paciente.toString();
         }
-        //todo Implementar recorrido de array y concatenar el "toString" de cada paciente en la var output
+        //todo Implementar el metodo para sortear los pacientes en orden descendente a la hora de mostrarlos (segun su numero de identificacion)
         
         return tmpOutput;
+    }
+
+    public static void SalvarDatos(ArrayList<Paciente> registroPacientes){
+        String fName = "Data";
+        try {
+            FileOutputStream file = new FileOutputStream(fName);
+            ObjectOutputStream oos = new ObjectOutputStream(file);
+            oos.writeObject(registroPacientes);
+            oos.close();
+            file.close();
+        }catch (IOException ioe){
+
+        }
+
+    }
+
+    public static ArrayList<Paciente> RecuperarDatos(){
+        //todo revisar y buscar el error
+        String fname = "Data";
+        ArrayList<Paciente> registroTmp = new ArrayList<>();
+
+        try {
+            FileInputStream file = new FileInputStream(fname);
+            ObjectInputStream ois = new ObjectInputStream(file);
+            //quizas el error se encuentra aca
+            registroTmp = (ArrayList) ois.readObject();
+
+            ois.close();
+            file.close();
+
+        }catch (IOException ioe){
+            return registroTmp;
+        }catch (ClassNotFoundException c){
+
+        }
+
+
+        return registroTmp;
     }
     
 }

@@ -14,11 +14,18 @@ import java.util.Date;
 
 enum Servicio{
     ConsultaMedicaGeneral, ConsultaMedicaEspecialista, Cirugia, Hospitalizacion;
-    // ConsultaMedicaGeneral == 0, ... Hospitalizacion == 3
+    // ConsultaMedicaGeneral == 1, ... Hospitalizacion == 4
 
 }
 
 public class Servicios {
+    //Constantes, facilitan mejoras futuras
+    private final double RANGO_SALARIAL_1 = 1817051;
+    private final double RANGO_SALARIAL_2 = 4542631;
+    private final double LIM_COPAGO_1 = 260.747;
+    private final double LIM_COPAGO_2 = 1044805;
+    private final double LIM_COPAGO_3 = 2089610;
+
 
 
     private Servicio servicio;
@@ -37,129 +44,109 @@ public class Servicios {
 
         //la var temporal "servicio" se pasa desde el metodo de registrar el servicio que se cree en el main, indica el tipo de servicio
         switch (servicio) {
-            case 0:
+            case 1:
                 this.servicio = Servicio.ConsultaMedicaGeneral;
                 break;
-            case 1:
+            case 2:
                 this.servicio = Servicio.ConsultaMedicaEspecialista;
                 break;
-            case 2:
+            case 3:
                 this.servicio = Servicio.Cirugia;
                 break;
-            default:
+            case 4:
                 this.servicio = Servicio.Hospitalizacion;
+                break;
+            default:
                 break;
         }
 
         //this.servicio = servicio;
         this.sueldo = sueldo;
         this.tipo = tipo;
-
-
         // la fecha se registra al crear el servicio (al llamar su constructor)
 
         fecha = new Date();
-    }
-    // todo revisar metodos, metodos en desuso deben ser borrados
-    public double getValor() {
-        return valor;
-    }
 
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+        //Se calcula directamente el valor a pagar
+        CalcularValor(tipo, this.servicio, sueldo);
     }
 
 
-    
-//quité lo que calcular valor ya que éste ya se hizo 
+    private void CalcularValor(int tipo, Servicio servicio, double sueldo){
 
+        if(servicio == Servicio.Cirugia || servicio == Servicio.Hospitalizacion){
 
-    
-
-
-    public double calcularCopago(  int servicio, double salario ){
-        double coPago = 0.0;
-        
-        if((servicio == 2 || servicio ==3)&& salario<=260747 ){
-            coPago= salario*0.115;
-            this.valor=salario*0.115; 
-        } else {
-            if((servicio == 2 || servicio ==3)&& (260747<=salario)&&(salario<=1044805)){
-                coPago= salario*0.173;
-                this.valor= salario*0.173;
-               
-            } else{
-                if((servicio == 2 || servicio ==3)&& (1044805<=salario)&&(salario<=2089610)){
-                    coPago= salario*0.23;
-                    this.valor= salario*0.23;
-   
-             } 
-    
-    
-           }
-            
-        } 
-        
-        return coPago;
-        
-        
-    
-    }
-    
-    
-    public double calcularCuotaMOderadora(double salario, int servicio){
-        double cuotaModeradora = 0.0;
-        
-        
-        
-        if ((servicio==0 || servicio==1) && (salario <=1817051)){
-          
-            cuotaModeradora= 3500; 
-            this.valor=3500; // hago esto por lo que mencioné en CalcularValorServicio()
-        }
-        else{
-            if((servicio==0 || servicio==1) &&  ((1817051 <= salario)&& (salario<= 4542631))){
-                cuotaModeradora= 14000; 
-                this.valor=14000;
+            if(tipo == 1){
+                this.valor = 0;
+            }else{
+                this.valor = CalcularCopago(sueldo);
             }
-            else{
-                if((servicio==0|| servicio==1)&&  (4542631 < salario)){
-                    cuotaModeradora= 36000;
-                    this.valor=36000; 
-                }
-     
-            }
-        
-        
-        
+
+        }else{
+
+            this.valor = CalcularCuotaMOderadora(sueldo);
+
         }
-    
-    return cuotaModeradora;
+
+
     }
+
+
+    private double CalcularCopago(double sueldo){
+        double tmpValor = 0;
+        if(sueldo <= RANGO_SALARIAL_1){
+            tmpValor = sueldo*0.115;
+            //aca se hace una comprobacion de que el copago no pase los "260,747" pero es redudante
+            if(tmpValor > LIM_COPAGO_1){
+                tmpValor = LIM_COPAGO_1;
+            }
+        }else if(sueldo > RANGO_SALARIAL_1 && sueldo <= RANGO_SALARIAL_2){
+            tmpValor = sueldo*0.173;
+            //aca se hace una comprobacion de que el copago no pase los "1,044,805" pero es redudante
+            if(tmpValor > LIM_COPAGO_2){
+                tmpValor = LIM_COPAGO_2;
+            }
+        }else{
+            tmpValor = sueldo*0.23;
+            if(tmpValor > LIM_COPAGO_3){
+                tmpValor = LIM_COPAGO_3;
+            }
+        }
+
+
+        return tmpValor;
+
+    }
+    
+    
+    private double CalcularCuotaMOderadora(double sueldo){
+        double tmpValor = 0;
+        if(sueldo <= RANGO_SALARIAL_1){
+            tmpValor =  3500;
+
+        }else if(sueldo > RANGO_SALARIAL_1 && sueldo <= RANGO_SALARIAL_2){
+            tmpValor = 14000;
+        }else{
+            tmpValor = 36800;
+        }
+        
+        
+
+        return tmpValor;
+    }
+
+
+
+
+    //todo colocar toString de nuevo
 
 
     @Override
     public String toString() {
-        return " Datos del servicio:" + '\''+
-                " valor=  " + valor + '\'' +
-                " fecha=  " + fecha + '\'' +
-                " tipo=   " + tipo;
+        return "\n--- Servicio registrado---\n" +
+                "Fecha: " + fecha +
+                "\nServicio: " + servicio +
+                "\nValor a pagar: " + valor;
     }
-
 }

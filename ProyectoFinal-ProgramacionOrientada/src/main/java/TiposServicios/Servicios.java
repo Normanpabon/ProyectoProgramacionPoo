@@ -11,6 +11,7 @@
  */
 package TiposServicios;
 import java.util.Date;
+import Pacientes.*;
 
 enum Servicio{
     ConsultaMedicaGeneral, ConsultaMedicaEspecialista, Cirugia, Hospitalizacion;
@@ -26,9 +27,19 @@ public class Servicios {
     private Date fecha; // Fecha de creacion, usa el tiempo actual
     private int tipo; // tipo 1 == Cotizante | 2 == Beneficiario (o buscar otra manera)
 
+
+   
+
+
     public Servicios() {
         fecha = new Date();
     }
+    
+    public Servicios(Date fecha, double salario, int tipoPaciente, int servicio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+    }
+    
 
     public Servicios(int tipo, int servicio) {
 
@@ -58,6 +69,11 @@ public class Servicios {
 
         fecha = new Date();
     }
+
+    
+
+    
+    
     // todo revisar metodos, metodos en desuso deben ser borrados
     public double getValor() {
         return valor;
@@ -94,7 +110,8 @@ public class Servicios {
     public double calcularCopago(  int servicio, double salario ){
         double coPago = 0.0;
         
-        if((servicio == 2 || servicio ==3)&& salario<=260747 ){
+        
+        if((servicio == 2 || servicio ==3)&& salario<=260.747 ){
             coPago= salario*0.115;
             this.valor=salario*0.115; 
         } else {

@@ -3,6 +3,7 @@ import TiposServicios.*;
 
 import java.util.ArrayList;
 import java.util.*;
+import javax.swing.JOptionPane;
 public class main {
 
     /**
@@ -47,6 +48,10 @@ public class main {
         String tipoRelacion = "";
         double salarioCotizante = 0.0;
         String tipoIdentificacion = "";
+        
+        //servicio 
+        Date fecha= new Date(); 
+        int servicio= 0; 
 
         //para las excepciones
         boolean error= true;
@@ -127,9 +132,19 @@ public class main {
                     //la existencia del paciente se verifica luego de la creacion del servicio
                     System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
+                    
+                    System.out.print("\n Ingrese la fecha \nfecha: ");
+                    //fecha = fecha.setDate(sc.nextLine());    aquí no sabría cómo poner eso  
+                    
+                    
+                    System.out.print("\nSeleccione tipo de servicio: \n1. Consulta médica general \n2. Consulta médica especialista \n3. Cirugía \n4. Hospitalización:");
+                    servicio= Integer.parseInt(sc.nextLine());
+                    
 
-                    //pedir los datos del servicio y luego invocarlo
+                    Servicios objServicioTmp= new Servicios(fecha, salarioCotizante, tipoPaciente, servicio); 
                     //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
+                    
+                    
 
                     //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, objServiciosTmp);
                     break;
@@ -213,7 +228,7 @@ public class main {
     }
 
 
-    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, Servicios servicio){
+    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, servicio , objServicioTmp){
         String tmpStatus = "\n";
         boolean tmpExiste = false;
         int tmpPosicion;

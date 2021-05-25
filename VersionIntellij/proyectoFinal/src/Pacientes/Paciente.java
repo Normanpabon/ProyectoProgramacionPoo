@@ -7,6 +7,7 @@
 /**
  *
  * @author Norman
+ * @author Juan
  */
 package Pacientes;
 import java.io.Serializable;
@@ -58,7 +59,7 @@ public abstract class Paciente implements Serializable {
     }
 
     public String getHistorialMedico() {
-        String tmpOutput = "\n ----- Historial medico ----- \n";
+        String tmpOutput = "\n----- Historial medico -----\n";
 
         for(Servicios servicio : historialMedico){
             //probar usar stringbuilder por buenas practicas
@@ -88,11 +89,11 @@ public abstract class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "Datos del paciente" +'\''+
-                "numeroRegistro=" + numeroRegistro + '\''+
-                ", numeroDocumentoIdentidad='" + numeroDocumentoIdentidad + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", historialMedico=" + historialMedico;
+        return "\n----- Datos del paciente -----\n" +
+                "\nNúmero de registro: " + numeroRegistro +
+                "\nNúmero de identificación: " + numeroDocumentoIdentidad +
+                "\nNombre completo: " + nombre;
+
                 
     }
 }

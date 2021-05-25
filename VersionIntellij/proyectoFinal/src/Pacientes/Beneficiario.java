@@ -9,12 +9,13 @@ import TiposServicios.Servicios;
 /**
  *
  * @author Norman
+ * @author Juan
  */
 public final class Beneficiario extends Paciente {
 
 
     private String tipoRelacion;
-    private Cotizante cotizante; // crear objeto y relacionarlo
+    private Cotizante cotizante; // Crear objeto y relacionarlo
     private String tipoIdentificacion;
 
     public Beneficiario(){
@@ -25,7 +26,7 @@ public final class Beneficiario extends Paciente {
     public Beneficiario(String tipoRelacion, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre, Cotizante cotizante){
 
         super(numeroRegistro, numeroDocumentoIdentidad, nombre);
-        //todo manejo de excepciones e interfaz
+        //Todo manejo de excepciones e interfaz
         this.cotizante = cotizante;
         this.tipoRelacion = tipoRelacion;
 
@@ -72,9 +73,10 @@ public final class Beneficiario extends Paciente {
 
     @Override
     public String toString() {
-        return  super.toString() +" \nBeneficiario{" +
-                ", tipoRelacion='" + tipoRelacion + '\'' +
-                ", tipoIdentificacion='" + tipoIdentificacion + '\'' +
-                '}';
+        return  super.toString() +"\nTipo de paciente: Beneficiario" +
+                "\nTipo de relación: " + tipoRelacion +
+                "\nTipo de identificación: " + tipoIdentificacion +
+                "\n" + getHistorialMedico();
+
     }
 }

@@ -22,7 +22,7 @@ public class Servicios {
     //Constantes, facilitan mejoras futuras
     private final double RANGO_SALARIAL_1 = 1817051;
     private final double RANGO_SALARIAL_2 = 4542631;
-    private final double LIM_COPAGO_1 = 260.747;
+    private final double LIM_COPAGO_1 = 260747;
     private final double LIM_COPAGO_2 = 1044805;
     private final double LIM_COPAGO_3 = 2089610;
 
@@ -85,7 +85,7 @@ public class Servicios {
 
         }else{
 
-            this.valor = CalcularCuotaMOderadora(sueldo);
+            this.valor = CalcularCuotaModeradora(sueldo);
 
         }
 
@@ -120,7 +120,7 @@ public class Servicios {
     }
     
     
-    private double CalcularCuotaMOderadora(double sueldo){
+    private double CalcularCuotaModeradora(double sueldo){
         double tmpValor = 0;
         if(sueldo <= RANGO_SALARIAL_1){
             tmpValor =  3500;
@@ -139,14 +139,13 @@ public class Servicios {
 
 
 
-    //todo colocar toString de nuevo
+    //Todo colocar toString de nuevo
 
 
     @Override
     public String toString() {
-        return "\n--- Servicio registrado---\n" +
+        return "\n----- Servicio registrado -----\n" +
                 "Fecha: " + fecha +
-                "\nServicio: " + servicio +
-                "\nValor a pagar: " + valor;
+                "\nValor a pagar: $" + valor;
     }
 }

@@ -58,19 +58,19 @@ public class main {
 
 
         while(run){
-            System.out.print("\nSeleccione una opcion : \n1. Registrar paciente \n2. Buscar Paciente \n3. Registrar Servicio \n4. Mostrar pacientes \n5. Salir del aplicativo \n\nOpcion: ");
+            System.out.print("\nSeleccione una opción: \n1. Registrar a un paciente. \n2. Buscar a un paciente. \n3. Registrar un servicio. \n4. Mostrar a los pacientes registrados. \n5. Salir del aplicativo. \n\nOpción: ");
             option = Integer.parseInt(sc.nextLine());
 
             switch (option) {
                 case 1:
 
-                    System.out.print("\nSeleccione tipo paciente a registrar: \n1. Paciente cotizante \n2. Paciente beneficiario \n\nOpcion: ");
+                    System.out.print("\nSeleccione el tipo de paciente a registrar: \n1. Paciente cotizante. \n2. Paciente beneficiario. \n\nOpción: ");
                     tipoPaciente = Integer.parseInt(sc.nextLine()); //pide el tipo de paciente para saber que constructor llamar
 
                     //empieza a pedir datos paciente
                     registro = contador;
 
-                    System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
+                    System.out.print("\nIngrese el número de identificación del paciente a registrar. \nID: ");
 
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
 
@@ -78,16 +78,16 @@ public class main {
 
 
 
-                    //nombre=JOptionPane.showInputDialog("\nIngrese Nombre completo paciente \n Nombre: ").toUpperCase();
-                    System.out.print("\nIngrese Nombre completo paciente \n Nombre: ");
+                    //nombre=JOptionPane.showInputDialog("\nIngrese el nombre completo del paciente a registrar. Nombre: ").toUpperCase();
+                    System.out.print("\nIngrese el nombre completo del paciente a registrar. \nNombre: ");
                     nombre = sc.nextLine();
 
                     if(tipoPaciente == 1){
 
-                        System.out.print("\nIngrese n° celular del paciente \n celular: ");
+                        System.out.print("\nIngrese el número de celular del paciente a registrar. \nCelular: ");
                         celular = sc.nextLine();
 
-                        System.out.print("\nIngrese salario mensual del paciente \n salario : $");
+                        System.out.print("\nIngrese el salario mensual del paciente a registrar. \nSalario : $");
                         salario = Double.parseDouble(sc.nextLine());
 
                         //genera obj paciente y lo agrega al array de registro
@@ -96,20 +96,20 @@ public class main {
 
                     }else if(tipoPaciente == 2){
 
-                        System.out.print("\n Ingrese n° registro del cotizante \n registro: ");
+                        System.out.print("\nIngrese el número de registro del paciente cotizante. \nRegistro: ");
                         registroCotizante = Integer.parseInt(sc.nextLine());
 
                         //verifica si el numero del cotizante esta correcto
                         Paciente tmpObjPaciente = ExistenciaCotizante(registroPacientes, registroCotizante);
                         if( tmpObjPaciente == null){
-                            System.out.println("\nError el cotizante no existe !\n");
+                            System.out.println("\n¡Error! El cotizante no existe. \n");
                             break;
                         }
 
-                        System.out.print("\n Ingrese tipo relacion paciente \n relacion: ");
+                        System.out.print("\nIngrese el tipo de relación con el paciente. \nRelación: ");
                         tipoRelacion = sc.nextLine();
 
-                        System.out.println("\n Ingrese tipo identificacion \n (Cedula, Passaporte...): ");
+                        System.out.println("\nIngrese el tipo de identificación. \n(Cedula, Pasaporte...): ");
                         tipoIdentificacion = sc.nextLine();
 
                         //genera obj paciente y lo agrega al array de registro
@@ -122,26 +122,26 @@ public class main {
 
                 case 2:
 
-                    System.out.print("\nIngrese el numero de identificacion del paciente a buscar \nIdentificacion: ");
+                    System.out.print("\nIngrese el número de identificación del paciente a buscar. \nIdentificación: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
                     System.out.println("\n"+MostrarRegistroPaciente(registroPacientes, numeroDocumentoIdentidad)+"\n");
                     break;
 
                 case 3:
 
-                    System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
+                    System.out.print("\nIngrese el número de identificación del paciente. \nID: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
 
                     if(ExistePaciente(registroPacientes, numeroDocumentoIdentidad)){
 
-                        System.out.print("\nIngrese el tipo de servicio \n1. Consulta General \n2. Consulta Especialista \n3. Cirugia \n4. Hospitalizacion \nOpcion: ");
+                        System.out.print("\nIngrese el tipo de servicio a registrar: \n1. Consulta General. \n2. Consulta Especialista. \n3. Cirugía. \n4. Hospitalización. \nOpcion: ");
                         int servicio = Integer.parseInt(sc.nextLine());
                         //todo al implementar la gui, ese system.out.println debe ser removido
                         System.out.println(RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, servicio));
                         //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, tipoServicio);
 
                     }else{
-                        System.out.println("\nEl documento ingresado no esta registrado");
+                        System.out.println("\nEl número de identificación ingresado no está registrado.");
                         break;
                     }
 
@@ -220,7 +220,7 @@ public class main {
                 output = paciente.toString();
                 break;
             }else{
-                output = "El paciente no existe";
+                output = "El paciente no existe.";
             }
         }
         
@@ -252,7 +252,7 @@ public class main {
         }
         if(!tmpExiste){
             //todo notificar al usuario que el paciente no existe
-            tmpStatus += "\nEl paciente no existe";
+            tmpStatus += "\nEl paciente no existe.";
         }
 
         return tmpStatus;
@@ -262,7 +262,7 @@ public class main {
         String tmpOutput = " ";
 
         if(registroPacientes.size() == 0){
-            tmpOutput = " No se encuentran pacientes registrados";
+            tmpOutput = "No se encuentran pacientes registrados.";
             return tmpOutput;
         }
 

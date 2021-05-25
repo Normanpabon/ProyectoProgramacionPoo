@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Norman
  */
-public final class Cotizante extends Paciente{
+public final class Cotizante extends Paciente {
     private String celular;
     private double salario;
 

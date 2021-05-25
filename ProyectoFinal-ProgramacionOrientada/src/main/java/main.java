@@ -1,16 +1,21 @@
 import Pacientes.*;
 import TiposServicios.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
+<<<<<<< HEAD
 import javax.swing.JOptionPane;
+=======
+
+// librerias para persistencia
+
+
+>>>>>>> be8f585fe10544bc8062f68cd702ded0235bd0c5
 public class main {
 
-    /**
-     * @param args the command line arguments
-     */
     static int contador = 0;
-    static ArrayList<Paciente> registroPacientes = new ArrayList<Paciente>();
+    static ArrayList<Paciente> registroPacientes;
     public static void main(String[] args) {
 
 
@@ -23,6 +28,9 @@ public class main {
 
 
     public static void CorrerSistema(){
+
+        //Verifica existencia de datos anteriores y carga el archivo
+        registroPacientes = RecuperarDatos(); //todo revisar, esta fallando
 
         //codigo de prueba funcionalidad basica consola
         boolean run = true;
@@ -129,9 +137,9 @@ public class main {
 
                 case 3:
 
-                    //la existencia del paciente se verifica luego de la creacion del servicio
                     System.out.print("\n Ingrese el numero documento identidad paciente \nId: ");
                     numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine());
+<<<<<<< HEAD
                     
                     System.out.print("\n Ingrese la fecha \nfecha: ");
                     //fecha = fecha.setDate(sc.nextLine());    aquí no sabría cómo poner eso  
@@ -145,15 +153,32 @@ public class main {
                     //Servicios objServiciosTmp; //objeto tmp de servicios, se debe entregar como parametro
                     
                     
+=======
 
-                    //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, objServiciosTmp);
+                    if(ExistePaciente(registroPacientes, numeroDocumentoIdentidad)){
+
+                        System.out.print("\nIngrese el tipo de servicio \n1. Consulta General \n2. Consulta Especialista \n3. Cirugia \n4. Hospitalizacion \nOpcion: ");
+                        int servicio = Integer.parseInt(sc.nextLine());
+                        //todo al implementar la gui, ese system.out.println debe ser removido
+                        System.out.println(RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, servicio));
+                        //RegistrarServicio(numeroDocumentoIdentidad, registroPacientes, tipoServicio);
+
+                    }else{
+                        System.out.println("\nEl documento ingresado no esta registrado");
+                        break;
+                    }
+>>>>>>> be8f585fe10544bc8062f68cd702ded0235bd0c5
+
                     break;
 
                 case 4:
-                    MostrarRegistroPacientes(registroPacientes);
+                    //todo al implementar la gui, ese system.out.println debe ser removido
+                    System.out.println(MostrarRegistroPacientes(registroPacientes));
                     break;
                 case 5:
                     run = false;
+                    //guarda los datos al pedir cerrar el programa
+                    SalvarDatos(registroPacientes);
                     break;
                 default:
                     break;
@@ -172,11 +197,25 @@ public class main {
 
     }
 
+    public static boolean ExistePaciente(ArrayList<Paciente> registroPacientes, int identificacionPaciente){
+        boolean tmpVar = false;
+
+        for(Paciente paciente : registroPacientes){
+
+            if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
+                tmpVar = true;
+            }
+        }
+
+
+        return tmpVar;
+    }
+
 
     public static Paciente ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
         Paciente tmpObj = new Cotizante();
         for(Paciente paciente : registroPacientes) {
-            if (paciente.getNumeroRegistro() == codigoCotizante) {
+            if (paciente.getNumeroRegistro() == codigoCotizante && paciente instanceof Cotizante) {
                 tmpObj = paciente;
                 break;
             }else{
@@ -186,21 +225,6 @@ public class main {
         return tmpObj;
     }
 
-    /*
-    public static boolean ExistenciaCotizante(ArrayList<Paciente> registroPacientes, int codigoCotizante){
-        boolean existe = false;
-
-        for(Paciente paciente : registroPacientes){
-            if(paciente.getNumeroRegistro() == codigoCotizante){
-                existe = true;
-                break;
-            }
-        }
-
-        return existe;
-    }
-
-     */
 
     public static void RegistrarPaciente(Paciente paciente){
         contador++; //contador numero pacientes
@@ -228,16 +252,27 @@ public class main {
     }
 
 
+<<<<<<< HEAD
     public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, servicio , objServicioTmp){
+=======
+    public static String RegistrarServicio(int identificacionPaciente, ArrayList<Paciente> registroPacientes, int tipoServicio){
+>>>>>>> be8f585fe10544bc8062f68cd702ded0235bd0c5
         String tmpStatus = "\n";
+        Servicios tmpServicio;
         boolean tmpExiste = false;
         int tmpPosicion;
 
         for(Paciente paciente : registroPacientes){
             if(paciente.getNumeroDocumentoIdentidad() == identificacionPaciente){
-                paciente.registrarServicio(servicio);
-                tmpStatus += paciente.obtenerUltimoServicio();
-                //todo notificar al usuario el valor a pagar y el registro exitoso del servicio
+                if(paciente instanceof Cotizante){
+                    tmpServicio = new Servicios(1, tipoServicio, ((Cotizante) paciente).getSalario());
+                }else{
+                    tmpServicio = new Servicios(2, tipoServicio, ((Beneficiario) paciente).getSalarioCotizante());
+                }
+                paciente.registrarServicio(tmpServicio);
+                // todo borrar esto e invocar metodo "toString" del servicio, el metodo "paciente.obtenerUltimoServicio()" es deundante
+                tmpStatus = paciente.obtenerUltimoServicio();
+
 
                 tmpExiste = true;
                 break;
@@ -254,13 +289,56 @@ public class main {
     public static String MostrarRegistroPacientes(ArrayList<Paciente> registroPacientes){
         String tmpOutput = " ";
 
+        if(registroPacientes.size() == 0){
+            tmpOutput = " No se encuentran pacientes registrados";
+            return tmpOutput;
+        }
+
         for(Paciente paciente : registroPacientes){
 
             tmpOutput += "\n --------- \n" + paciente.toString();
         }
-        //todo Implementar recorrido de array y concatenar el "toString" de cada paciente en la var output
+        //todo Implementar el metodo para sortear los pacientes en orden descendente a la hora de mostrarlos (segun su numero de identificacion)
         
         return tmpOutput;
+    }
+
+    public static void SalvarDatos(ArrayList<Paciente> registroPacientes){
+        String fName = "Data";
+        try {
+            FileOutputStream file = new FileOutputStream(fName);
+            ObjectOutputStream oos = new ObjectOutputStream(file);
+            oos.writeObject(registroPacientes);
+            oos.close();
+            file.close();
+        }catch (IOException ioe){
+
+        }
+
+    }
+
+    public static ArrayList<Paciente> RecuperarDatos(){
+        //todo revisar y buscar el error
+        String fname = "Data";
+        ArrayList<Paciente> registroTmp = new ArrayList<>();
+
+        try {
+            FileInputStream file = new FileInputStream(fname);
+            ObjectInputStream ois = new ObjectInputStream(file);
+            //quizas el error se encuentra aca
+            registroTmp = (ArrayList) ois.readObject();
+
+            ois.close();
+            file.close();
+
+        }catch (IOException ioe){
+            return registroTmp;
+        }catch (ClassNotFoundException c){
+
+        }
+
+
+        return registroTmp;
     }
     
 }

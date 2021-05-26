@@ -15,7 +15,7 @@ public final class Beneficiario extends Paciente {
 
 
     private String tipoRelacion;
-    private Cotizante cotizante; // Crear objeto y relacionarlo
+    private Cotizante cotizante;
     private String tipoIdentificacion;
 
     public Beneficiario(){

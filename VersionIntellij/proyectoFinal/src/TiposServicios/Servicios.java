@@ -40,7 +40,6 @@ public class Servicios {
 
     public Servicios(int tipo, int servicio, double sueldo) {
 
-        // todo verificar asignacion servicio desde el main
 
         //la var temporal "servicio" se pasa desde el metodo de registrar el servicio que se cree en el main, indica el tipo de servicio
         switch (servicio) {
@@ -136,10 +135,6 @@ public class Servicios {
         return tmpValor;
     }
 
-
-
-
-    //Todo colocar toString de nuevo
 
 
     @Override

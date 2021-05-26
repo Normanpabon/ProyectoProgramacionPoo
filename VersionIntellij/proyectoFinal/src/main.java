@@ -1,22 +1,18 @@
 import Pacientes.*;
 import TiposServicios.*;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
-
-// librerias para persistencia
-
 
 public class main {
 
     static int contador = 0;
     static ArrayList<Paciente> registroPacientes;
+
     public static void main(String[] args) {
 
 
         CorrerSistema();
-
 
 
     }
@@ -30,28 +26,27 @@ public class main {
 
         //codigo de prueba funcionalidad basica consola
         boolean run = true;
-        int option = 0;
+        int option;
         Scanner sc = new Scanner(System.in);
 
 
 
         //Variables para paciente
 
-        int tipoPaciente = 0; // 0 = null, 1 = cotizante, 2 = beneficiario
-
-        int registro;
-        int numeroDocumentoIdentidad = 0;
+        int tipoPaciente; // 0 = null, 1 = cotizante, 2 = beneficiario
+        int registro; // Registro interno del sistema
+        int numeroDocumentoIdentidad;
         String nombre = "";
 
         //pacienteCotizante
-        String celular = "";
-        double salario = 0.0;
+        String celular;
+        double salario;
 
         //pacienteBeneficiario
-        int registroCotizante = 0;
-        String tipoRelacion = "";
-        double salarioCotizante = 0.0;
-        String tipoIdentificacion = "";
+        int registroCotizante;
+        String tipoRelacion;
+        double salarioCotizante;
+        String tipoIdentificacion;
 
         //para las excepciones
         boolean error= true;
@@ -101,7 +96,7 @@ public class main {
 
                         //verifica si el numero del cotizante esta correcto
                         Paciente tmpObjPaciente = ExistenciaCotizante(registroPacientes, registroCotizante);
-                        if( tmpObjPaciente == null){
+                        if( tmpObjPaciente.getNombre() == null){
                             System.out.println("\n¡Error! El cotizante no existe. \n");
                             break;
                         }
@@ -268,7 +263,7 @@ public class main {
 
         for(Paciente paciente : registroPacientes){
 
-            tmpOutput += "\n --------- \n" + paciente.toString();
+            tmpOutput += "\n ------------------------------ \n" + paciente.toString(); //separador para pacientes
         }
         //todo Implementar el metodo para sortear los pacientes en orden descendente a la hora de mostrarlos (segun su numero de identificacion)
         
@@ -284,6 +279,7 @@ public class main {
             oos.close();
             file.close();
         }catch (IOException ioe){
+            System.out.println(ioe);
 
         }
 
@@ -304,8 +300,11 @@ public class main {
             file.close();
 
         }catch (IOException ioe){
+            System.out.print(ioe);
             return registroTmp;
+
         }catch (ClassNotFoundException c){
+            System.out.println(c);
 
         }
 

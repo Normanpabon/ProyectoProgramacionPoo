@@ -7,13 +7,14 @@
 /**
  *
  * @author Norman
+ * @author Juan
  */
 package Pacientes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import TiposServicios.Servicios;
 
-public abstract class Paciente implements Serializable {
+public abstract class Paciente implements Serializable, Comparable {
 
     private int numeroRegistro;
     private int numeroDocumentoIdentidad;
@@ -58,7 +59,7 @@ public abstract class Paciente implements Serializable {
     }
 
     public String getHistorialMedico() {
-        String tmpOutput = "\n ----- Historial medico ----- \n";
+        String tmpOutput = "\n----- Historial medico -----\n";
 
         for(Servicios servicio : historialMedico){
             //probar usar stringbuilder por buenas practicas
@@ -74,25 +75,16 @@ public abstract class Paciente implements Serializable {
         this.historialMedico.add(servicio);
     }
 
-    //devuelve el ultimo servicio registrado con el usuario
-    public String obtenerUltimoServicio(){
-
-        //todo hacer manejo de excepcion, alta probabilidad de un nullpointer
-        return historialMedico.get(historialMedico.size() - 1).toString();
-
-
-    }
-
 
 
 
     @Override
     public String toString() {
-        return "Datos del paciente" +'\''+
-                "numeroRegistro=" + numeroRegistro + '\''+
-                ", numeroDocumentoIdentidad='" + numeroDocumentoIdentidad + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", historialMedico=" + historialMedico;
+        return "\n----- Datos del paciente -----\n" +
+                "\nNúmero de registro: " + numeroRegistro +
+                "\nNúmero de identificación: " + numeroDocumentoIdentidad +
+                "\nNombre completo: " + nombre;
+
                 
     }
 }

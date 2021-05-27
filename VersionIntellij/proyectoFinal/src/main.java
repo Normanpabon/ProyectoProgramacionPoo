@@ -238,7 +238,7 @@ public class main {
                 }
                 paciente.registrarServicio(tmpServicio);
                 // todo borrar esto e invocar metodo "toString" del servicio, el metodo "paciente.obtenerUltimoServicio()" es deundante
-                tmpStatus = paciente.obtenerUltimoServicio();
+                tmpStatus = tmpServicio.toString();
 
 
                 tmpExiste = true;
@@ -246,26 +246,28 @@ public class main {
             }
         }
         if(!tmpExiste){
-            //todo notificar al usuario que el paciente no existe
+
             tmpStatus += "\nEl paciente no existe.";
         }
 
         return tmpStatus;
     }
 
-    public static String MostrarRegistroPacientes(ArrayList<Paciente> registroPacientes){
+    public static String MostrarRegistroPacientes(ArrayList<Paciente> regPacientes){
         String tmpOutput = " ";
+        Collections.sort(regPacientes);
 
-        if(registroPacientes.size() == 0){
+
+        if(regPacientes.size() == 0){
             tmpOutput = "No se encuentran pacientes registrados.";
             return tmpOutput;
         }
 
-        for(Paciente paciente : registroPacientes){
+        for(Paciente paciente : regPacientes){
 
             tmpOutput += "\n ------------------------------ \n" + paciente.toString(); //separador para pacientes
         }
-        //todo Implementar el metodo para sortear los pacientes en orden descendente a la hora de mostrarlos (segun su numero de identificacion)
+
         
         return tmpOutput;
     }

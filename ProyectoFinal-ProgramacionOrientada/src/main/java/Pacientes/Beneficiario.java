@@ -9,12 +9,13 @@ import TiposServicios.Servicios;
 /**
  *
  * @author Norman
+ * @author Juan
  */
 public final class Beneficiario extends Paciente {
 
 
     private String tipoRelacion;
-    private Cotizante cotizante; // crear objeto y relacionarlo
+    private Cotizante cotizante;
     private String tipoIdentificacion;
 
     public Beneficiario(){
@@ -25,7 +26,6 @@ public final class Beneficiario extends Paciente {
     public Beneficiario(String tipoRelacion, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre, Cotizante cotizante){
 
         super(numeroRegistro, numeroDocumentoIdentidad, nombre);
-        //todo manejo de excepciones e interfaz
         this.cotizante = cotizante;
         this.tipoRelacion = tipoRelacion;
 
@@ -63,18 +63,24 @@ public final class Beneficiario extends Paciente {
 
     @Override
     public void registrarServicio(Servicios servicio){
-        //todo crear sistema de registro y pasar como argumento constructor del servicio, el "2" para hacer referencia a beneficiario
-
-
 
         super.registrarServicio(servicio);
     }
 
     @Override
-    public String toString() {
-        return  super.toString() +" \nBeneficiario{" +
-                ", tipoRelacion='" + tipoRelacion + '\'' +
-                ", tipoIdentificacion='" + tipoIdentificacion + '\'' +
-                '}';
+    public int compareTo(Object o) {
+        int compareIdentidad = ((Paciente) o).getNumeroDocumentoIdentidad();
+        return super.getNumeroDocumentoIdentidad() - compareIdentidad;
     }
+
+    @Override
+    public String toString() {
+        return  super.toString() +"\nTipo de paciente: Beneficiario" +
+                "\nTipo de relación: " + tipoRelacion +
+                "\nTipo de identificación: " + tipoIdentificacion +
+                "\n" + getHistorialMedico();
+
+    }
+
+
 }

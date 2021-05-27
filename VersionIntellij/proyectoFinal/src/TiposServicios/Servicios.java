@@ -141,6 +141,7 @@ public class Servicios {
     public String toString() {
         return "\n----- Servicio registrado -----\n" +
                 "Fecha: " + fecha +
+                "\nServicio: " + servicio +
                 "\nValor a pagar: $" + valor;
     }
 }

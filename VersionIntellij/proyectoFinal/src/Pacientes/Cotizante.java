@@ -64,4 +64,10 @@ public final class Cotizante extends Paciente {
                 "\n" + getHistorialMedico();
 
     }
+
+    @Override
+    public int compareTo(Object o) {
+        int compareIdentidad=((Paciente)o).getNumeroDocumentoIdentidad();
+        return super.getNumeroDocumentoIdentidad()-compareIdentidad;
+    }
 }

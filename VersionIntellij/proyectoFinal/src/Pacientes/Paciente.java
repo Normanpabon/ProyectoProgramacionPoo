@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import TiposServicios.Servicios;
 
-public abstract class Paciente implements Serializable {
+public abstract class Paciente implements Serializable, Comparable {
 
     private int numeroRegistro;
     private int numeroDocumentoIdentidad;
@@ -73,15 +73,6 @@ public abstract class Paciente implements Serializable {
 
     public void registrarServicio(Servicios servicio) {
         this.historialMedico.add(servicio);
-    }
-
-    //devuelve el ultimo servicio registrado con el usuario
-    public String obtenerUltimoServicio(){
-
-        //todo hacer manejo de excepcion, alta probabilidad de un nullpointer
-        return historialMedico.get(historialMedico.size() - 1).toString();
-
-
     }
 
 

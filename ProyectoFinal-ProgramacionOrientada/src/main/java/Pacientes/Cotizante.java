@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Norman
+ * @author Juan
  */
 public final class Cotizante extends Paciente {
     private String celular;
@@ -52,17 +53,21 @@ public final class Cotizante extends Paciente {
     //registrar un servicio
     @Override
     public void registrarServicio(Servicios servicio) {
-        //todo crear sistema de registro y pasar como argumento constructor del servicio, el "1" para hacer referencia a cotizante
-
-        //todo pedir los datos para crear el servicio aca
         super.registrarServicio(servicio);
     }
 
     @Override
-    public String toString() {  //todo acomodar
-        return  super.toString() +" \nCotizantes{" +
-                "celular='" + celular + '\'' +
-                ", salario=" + salario +
-                '}';
+    public String toString() {
+        return  super.toString() +"\nTipo de paciente: Cotizante" +
+                "\nNúmero de celular: " + celular +
+                "\nSalario mensual: $" + salario +
+                "\n" + getHistorialMedico();
+
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int compareIdentidad=((Paciente)o).getNumeroDocumentoIdentidad();
+        return super.getNumeroDocumentoIdentidad()-compareIdentidad;
     }
 }

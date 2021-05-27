@@ -26,7 +26,6 @@ public final class Beneficiario extends Paciente {
     public Beneficiario(String tipoRelacion, String tipoIdentificacion, int numeroRegistro, int numeroDocumentoIdentidad, String nombre, Cotizante cotizante){
 
         super(numeroRegistro, numeroDocumentoIdentidad, nombre);
-        //Todo manejo de excepciones e interfaz
         this.cotizante = cotizante;
         this.tipoRelacion = tipoRelacion;
 
@@ -64,11 +63,14 @@ public final class Beneficiario extends Paciente {
 
     @Override
     public void registrarServicio(Servicios servicio){
-        //todo crear sistema de registro y pasar como argumento constructor del servicio, el "2" para hacer referencia a beneficiario
-
-
 
         super.registrarServicio(servicio);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int compareIdentidad = ((Paciente) o).getNumeroDocumentoIdentidad();
+        return super.getNumeroDocumentoIdentidad() - compareIdentidad;
     }
 
     @Override
@@ -79,4 +81,6 @@ public final class Beneficiario extends Paciente {
                 "\n" + getHistorialMedico();
 
     }
+
+
 }

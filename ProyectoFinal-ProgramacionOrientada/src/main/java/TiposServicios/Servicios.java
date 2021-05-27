@@ -10,6 +10,7 @@
  * @author Juan
  */
 package TiposServicios;
+import java.io.Serializable;
 import java.util.Date;
 
 enum Servicio{
@@ -18,7 +19,7 @@ enum Servicio{
 
 }
 
-public class Servicios {
+public class Servicios implements Serializable {
     //Constantes, facilitan mejoras futuras
     private final double RANGO_SALARIAL_1 = 1817051;
     private final double RANGO_SALARIAL_2 = 4542631;

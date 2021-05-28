@@ -3,6 +3,7 @@ import TiposServicios.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class main {
 
@@ -33,17 +34,17 @@ public class main {
 
         //Variables para paciente
 
-        int tipoPaciente; // 0 = null, 1 = cotizante, 2 = beneficiario
-        int registro; // Registro interno del sistema
-        int numeroDocumentoIdentidad;
+        int tipoPaciente = 0; // 0 = null, 1 = cotizante, 2 = beneficiario
+        int registro=0; // Registro interno del sistema
+        int numeroDocumentoIdentidad= 0;
         String nombre = "";
 
         //pacienteCotizante
         String celular;
-        double salario;
+        double salario= 0.0;
 
         //pacienteBeneficiario
-        int registroCotizante;
+        int registroCotizante=0;
         String tipoRelacion;
         double salarioCotizante;
         String tipoIdentificacion;
@@ -58,7 +59,9 @@ public class main {
 
             switch (option) {
                 case 1:
-
+                    while(error){
+                    try{
+                        
                     System.out.print("\nSeleccione el tipo de paciente a registrar: \n1. Paciente cotizante. \n2. Paciente beneficiario. \n\nOpción: ");
                     tipoPaciente = Integer.parseInt(sc.nextLine()); //pide el tipo de paciente para saber que constructor llamar
 
@@ -66,13 +69,22 @@ public class main {
                     registro = contador;
 
                     System.out.print("\nIngrese el número de identificación del paciente a registrar. \nID: ");
-
-                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona error que saltaba el nombre
-
-                            
-
-
-
+                    numeroDocumentoIdentidad = Integer.parseInt(sc.nextLine()); //soluciona e11rror que saltaba el nombre
+                        error=false;
+                        
+                        
+                    } catch(NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, "El numero regristrado debe ser un ENTERO\n"+
+                                "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                "toString: "+e.toString());
+                      }
+                    
+                    }   System.out.println("tipo paciente= "+ tipoPaciente+'\n'+
+                                           "N° documento: "+ numeroDocumentoIdentidad);
+                    
+                    
+                    
+                 
                     //nombre=JOptionPane.showInputDialog("\nIngrese el nombre completo del paciente a registrar. Nombre: ").toUpperCase();
                     System.out.print("\nIngrese el nombre completo del paciente a registrar. \nNombre: ");
                     nombre = sc.nextLine();
@@ -81,18 +93,42 @@ public class main {
 
                         System.out.print("\nIngrese el número de celular del paciente a registrar. \nCelular: ");
                         celular = sc.nextLine();
+                        
+                        while(error){
+                            
+                            try{
+                                System.out.print("\nIngrese el salario mensual del paciente a registrar. \nSalario : $");
+                                salario = Double.parseDouble(sc.nextLine());
+                                error=false; 
 
-                        System.out.print("\nIngrese el salario mensual del paciente a registrar. \nSalario : $");
-                        salario = Double.parseDouble(sc.nextLine());
+                            }catch(NumberFormatException e){
+                                JOptionPane.showMessageDialog(null, "El salario debe ser un decimal (ejemplo: 200.000)\n"+
+                                "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                "toString: "+e.toString());
+                                
+                            }
+                        } System.out.println("salario= "+salario);
 
                         //genera obj paciente y lo agrega al array de registro
                         Cotizante pacienteTmp = new Cotizante(celular, salario, registro, numeroDocumentoIdentidad, nombre);
                         RegistrarPaciente(pacienteTmp);
 
                     }else if(tipoPaciente == 2){
+                        
+                        while(error){
+                            
+                            try{
 
                         System.out.print("\nIngrese el número de registro del paciente cotizante. \nRegistro: ");
                         registroCotizante = Integer.parseInt(sc.nextLine());
+                        error=false; 
+                            }catch(NumberFormatException e){
+                                JOptionPane.showMessageDialog(null, "El número de registro debe ser un entero(ejemplo: 1234)\n"+
+                                "Mensaje de excepción: "+ e.getMessage()+'\n'+
+                                "toString: "+e.toString());
+                            
+                            }
+                        } System.out.print("N° de registro del cotizante=  "+ registroCotizante);
 
                         //verifica si el numero del cotizante esta correcto
                         Paciente tmpObjPaciente = ExistenciaCotizante(registroPacientes, registroCotizante);

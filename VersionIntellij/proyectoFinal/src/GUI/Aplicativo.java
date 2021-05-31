@@ -460,7 +460,7 @@ public class Aplicativo extends javax.swing.JFrame {
     private javax.swing.JLabel txtSeleccioneUnaOpcion;
     // End of variables declaration//GEN-END:variables
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">    
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
         txtRegimenContributivoDeSalud = new javax.swing.JLabel();

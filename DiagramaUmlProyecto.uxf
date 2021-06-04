@@ -24,31 +24,28 @@ fontsize=10
 
 
 // This text will be stored with each diagram;  use it for notes.</help_text>
-  <zoom_level>20</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>760</x>
-      <y>860</y>
-      <w>800</w>
-      <h>660</h>
+      <x>370</x>
+      <y>430</y>
+      <w>410</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>Abstract: Paciente
 Package: Pacientes
 --
 - numeroRegistro : int
-- numeroDocumentoIdentidad: int
+- numeroDocumentoIdentidad : int
 - nombre : String
-
-- ArrayList &lt;Servicios&gt; historialMedico : ArrayList&lt;&gt;
-
+- ArrayList &lt;Servicios&gt; historialMedico: ArrayList &lt;&gt;
 --
 + Paciente()
 + Paciente(&lt;&lt;atributos propios&gt;&gt;)
 + &lt;&lt;getter&gt;&gt;
 + &lt;&lt;setter&gt;&gt;
-# &lt;&lt;abstract&gt;&gt;RegistrarServicio(ArrayList&lt;Servicios&gt; historialMedico : ArrayList&lt;&gt;) : void
-+ obtenerUltimoServicio(): String
+# &lt;&lt;abstract&gt;&gt; RegistrarServicio (ArrayList&lt;Servicios&gt; historialMedico : ArrayList&lt;&gt;) : void
 + &lt;&lt;toString&gt;&gt;
 
 
@@ -58,12 +55,12 @@ Package: Pacientes
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>1640</y>
-      <w>680</w>
-      <h>520</h>
+      <x>140</x>
+      <y>680</y>
+      <w>340</w>
+      <h>160</h>
     </coordinates>
-    <panel_attributes>&lt;final&gt; Sub:Cotizantes
+    <panel_attributes>&lt;final&gt; Sub: Cotizante
 Package:Pacientes
 --
 - celular : String
@@ -73,8 +70,9 @@ Package:Pacientes
 + Cotizantes(&lt;&lt;atributos propios&gt;&gt;, &lt;&lt;atributos superclase&gt;&gt;)
 + &lt;&lt;getter&gt;&gt;
 + &lt;&lt;setter&gt;&gt;
-+ &lt;&lt;Super&gt;&gt; registrarServicio(historialMedico : ArrayList&lt;Servicios&gt;.) : void
++ &lt;&lt;super&gt;&gt; registrarServicio(historialMedico : ArrayList&lt;Servicios&gt;.) : void
 + &lt;&lt;toString&gt;&gt;
++ compareTo(Paciente o): int 
 
 </panel_attributes>
     <additional_attributes/>
@@ -82,57 +80,56 @@ Package:Pacientes
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1200</x>
-      <y>1640</y>
-      <w>680</w>
-      <h>540</h>
+      <x>540</x>
+      <y>680</y>
+      <w>340</w>
+      <h>170</h>
     </coordinates>
-    <panel_attributes>&lt;final&gt; Sub:Beneficiarios
+    <panel_attributes>&lt;final&gt; Sub: Beneficiario
 Package: Pacientes
 --
-- registroCotizante : int
 - tipoRelacion : String
-- salarioCotizante : double
-- tipoIdentificacion : String
-
+- cotizante: Cotizante
+- tipoIdentificacion: String
 --
 + Beneficiarios()
 + Beneficiarios(&lt;&lt;atributos propios&gt;&gt;, &lt;&lt;atributos superclase&gt;&gt;)
 + &lt;&lt;getter&gt;&gt;
 + &lt;&lt;setter&gt;&gt;
-+ &lt;&lt;Super&gt;&gt; registrarServicio(historialMedico : ArrayList &lt;Servicios&gt;) : void
++ &lt;&lt;super&gt;&gt; registrarServicio(historialMedico : ArrayList &lt;Servicios&gt;) : void
++ compareTo(Paciente o): int 
 + &lt;&lt;toString&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1220</x>
-      <y>1500</y>
-      <w>240</w>
-      <h>180</h>
+      <x>600</x>
+      <y>590</y>
+      <w>70</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;50.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>1500</y>
-      <w>420</w>
-      <h>180</h>
+      <x>230</x>
+      <y>590</y>
+      <w>270</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>190.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>250.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>180</x>
-      <y>720</y>
-      <w>1720</w>
-      <h>1600</h>
+      <x>80</x>
+      <y>360</y>
+      <w>860</w>
+      <h>800</h>
     </coordinates>
     <panel_attributes>Pacientes
 --
@@ -144,47 +141,63 @@ fg=red</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>700</x>
-      <y>100</y>
-      <w>1220</w>
-      <h>580</h>
+      <x>310</x>
+      <y>50</y>
+      <w>610</w>
+      <h>290</h>
     </coordinates>
-    <panel_attributes>Main
+    <panel_attributes>Aplicativo
 --
-_Contador : int_
-ArrayList &lt;Paciente&gt; registroPacientes : ArrayList &lt;Paciente&gt;
+- contador : int [0]
+- ArrayList &lt;Paciente&gt; registroPacientes : ArrayList &lt;Paciente&gt;
+- tiposPaciente : String [Paciente cotizante, Paciente beneficiario]
+- tiposRelacion: String [Padre, Hijo, Cónyuge]
+- tiposServicio: String [Consulta Médica General, Consulta Médica Especialista, Cirugía, Hospitalización]
+- tiposIdentificiacion: String [Cedula, Tarjeta de identidad, Registro de nacimiento] 
 --
-_+ main(String []args): void_
++ main(String args[]): void
 + CorrerSistema():void
-+ ExistenciaCotizante(registroPacientes : Arraylist&lt;Paciente&gt;, codigoCotizante : int) : boolean
-+ RegistrarPaciente(objPaciente : Paciente): void
-+ MostrarRegistroPaciente(ArrayList&lt;Paciente&gt; registroPacientes : ArrayList&lt;&gt;, identificacionPaciente : int) : String
-+ RegistrarServicio(identificacionPaciente: int, ArrayList&lt;Paciente&gt; registroPacientes: ArrayList&lt;&gt;, Servicio: enum): String
-+ MostrarRegistroPacientes(ArrayList&lt;Paciente&gt; registroPacientes : ArrayList&lt;&gt;) : String</panel_attributes>
++ Aplicativo()
+- ObtenerNumeroConsecutivo(): int
+- RegistrarPaciente(paciente: Paciente): void
++ MostrarRegistroPaciente(ArrayList&lt;Paciente&gt; registroPacientes, identificacionPaciente: int): String
++ RegistrarServicio(identificacionPaciente: int, ArrayList&lt;Paciente&gt; registroPacientes, tipoServicio: int): String
+- RecuperarDatos(): ArrayList&lt;Paciente&gt;
++ MostrarRegistroPacientes(ArrayList&lt;Paciente&gt; regPacientes): String
++ SalvarDatos(ArrayList&lt;Paciente&gt; registroPacientes): void
++ &lt;&lt;static&gt;&gt; ExistePaciente(ArrayList&lt;Paciente&gt; registroPacientes, identificacionPaciente: int): boolean
++ ExistenciaCotizante(ArrayList&lt;Paciente&gt; registroPacientes, codigoCotizante: int): Paciente
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2000</x>
-      <y>820</y>
-      <w>740</w>
-      <h>600</h>
+      <x>990</x>
+      <y>410</y>
+      <w>370</w>
+      <h>300</h>
     </coordinates>
     <panel_attributes>Servicios
 Package: TiposServicios
 --
-- servicio : enum
-- valor : double
-- fecha : date
-- tipo : int 
+- &lt;final&gt; RANGO_SALARIAL_1 : double [1817051]
+- &lt;final&gt; RANGO_SALARIAL_2 : double [4542631]
+- &lt;final&gt; LIM_COPAGO_1 : double [260747]
+- &lt;final&gt; LIM_COPAGO_2 : double [1044805]
+- &lt;final&gt; LIM_COPAGO_3 : double [2089610]
+- servicio: Servicio
+- sueldo: double
+- valor: double
+- fecha: Date
+- tipo: int
 --
 + Servicios()
-+ Servicios(&lt;&lt;atributos propios&gt;&gt;)
-+ &lt;&lt;getter&gt;&gt;
-+ &lt;&lt;setter&gt;&gt;
-+ CalcularCopago(salario : double, servicio: int) : double
-+ CalcularCuotaModeradora(salario : double, 	servicio : int) : double
++ Servicios(tipo: int, servicio: int, sueldo: double)
+- CalcularValor(tipo: int, servicio: Servicio, sueldo: double): void
+- CalcularCopago(sueldo : double) : double
+- CalcularCuotaModeradora(sueldo : double) : double
 + &lt;&lt;toString&gt;&gt;
 </panel_attributes>
     <additional_attributes/>
@@ -192,23 +205,23 @@ Package: TiposServicios
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1540</x>
-      <y>1020</y>
-      <w>500</w>
-      <h>80</h>
+      <x>770</x>
+      <y>510</y>
+      <w>240</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 
 1          historialMedico       0...*</panel_attributes>
-    <additional_attributes>10.0;20.0;230.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1100</x>
-      <y>660</y>
-      <w>260</w>
-      <h>240</h>
+      <x>540</x>
+      <y>330</y>
+      <w>130</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 registroPacientes   0...*</panel_attributes>
@@ -217,10 +230,10 @@ registroPacientes   0...*</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1920</x>
-      <y>700</y>
-      <w>1520</w>
-      <h>780</h>
+      <x>950</x>
+      <y>350</y>
+      <w>760</w>
+      <h>390</h>
     </coordinates>
     <panel_attributes>TiposServicios
 --
@@ -232,10 +245,10 @@ fg=red</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2960</x>
-      <y>820</y>
-      <w>420</w>
-      <h>380</h>
+      <x>1470</x>
+      <y>410</y>
+      <w>210</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
 Servicio
@@ -250,10 +263,10 @@ Hospitalizacion
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2720</x>
-      <y>980</y>
-      <w>280</w>
-      <h>80</h>
+      <x>1350</x>
+      <y>490</y>
+      <w>140</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;..
 - servicio</panel_attributes>
@@ -264,8 +277,8 @@ Hospitalizacion
     <coordinates>
       <x>0</x>
       <y>0</y>
-      <w>3700</w>
-      <h>2620</h>
+      <w>1850</w>
+      <h>1310</h>
     </coordinates>
     <panel_attributes>SistemaHospital
 --
@@ -273,6 +286,21 @@ Hospitalizacion
 +Content 2
 bg=white
 fg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>290</x>
+      <y>20</y>
+      <w>640</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>GUI
+--
+
+bg=gray
+fg=red</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
